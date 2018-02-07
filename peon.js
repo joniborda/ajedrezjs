@@ -11,7 +11,6 @@ Peon.prototype = Object.create(Ficha.prototype);
 Peon.prototype.puedeMover = function(x, y) {
 
 	this.alpaso = false;
-	// ver como saber cual es la posicion para adelante
 
 	// primer movimiento puede ser de a 2
 	if (this.movio === false && Math.abs(this.y - y) === 2 && this.x - x === 0) {
@@ -20,6 +19,16 @@ Peon.prototype.puedeMover = function(x, y) {
 	}
 
 	// una position en vertical
+	if (this.position == ARRIBA && this.y - y > 1) {
+		console.log('no puede mover para atras');
+		return false;
+	}
+
+	if (this.position == ABAJO && this.y - y < 1) {
+		console.log('no puede mover para atras');
+		return false;
+	}
+
 	if (Math.abs(this.y - y) !== 1) {
 		console.log('no puede mover');
 		return false;

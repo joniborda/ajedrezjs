@@ -17,9 +17,11 @@ Ficha.prototype.setPosition = function(x, y) {
 
 Ficha.prototype.setColor = function(color) {
 	this.color = color;
-	if (color == 'blanco') {
+	this.position = ABAJO;
+	if (color == BLANCA) {
 		this.ficha.css('color', '#FFF');
 	} else {
+		this.position = ARRIBA;
 		this.ficha.css('color', '#000');
 	}
 }
