@@ -41,12 +41,18 @@ Ficha.prototype.mover = function(x, y) {
 		this.movio = true;
 		this.casillas[this.x][this.y] = null;
 
-		if (this.casillas[x][y]) {
-			console.log('comio ' + this.casillas[x][y].nombre);
-			this.casillas[x][y].remover();
+		if (this.enroque) {
+			this.enrocar(x, y);
+		} else {
+			if (this.casillas[x][y]) {
+				console.log('comio ' + this.casillas[x][y].nombre);
+				this.casillas[x][y].remover();
+			}
+			this.setPosition(x, y);
+			this.casillas[x][y] = this;
+			
 		}
-		this.setPosition(x, y);
-		this.casillas[x][y] = this;
+
 		return true;
 	}
 	return false;

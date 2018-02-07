@@ -10,6 +10,7 @@ Peon.prototype = Object.create(Ficha.prototype);
 
 Peon.prototype.puedeMover = function(x, y) {
 
+	this.alpaso = false;
 	// ver como saber cual es la posicion para adelante
 
 	// primer movimiento puede ser de a 2
@@ -24,17 +25,19 @@ Peon.prototype.puedeMover = function(x, y) {
 		return false;
 	}
 
-	if (this.x - x === 0) {
-		this.alpaso = false;
+	// si mueve uno
+	if (Math.abs(this.y - y) === 1 && this.x - x === 0) {
 		return true;
 	}
 
 	// si hay una pieza y en x solo hay uno de diferencia puede comer
-	if (this.casillas[x] && this.casillas[x][y]) {
-		this.alpaso = false;
+	if (
+		Math.abs(this.y - y) === 1 && Math.abs(this.x - x) === 1 && 
+		this.casillas[x] && this.casillas[x][y]
+	) {
 		return true;
 	} else {
-		console.log('no puede mover sin comer');
+		console.log('no puede mover en diagonal sin comer');
 		return false;
 	}
 }
