@@ -1,0 +1,50 @@
+<link rel="stylesheet" type="text/css" href="bootstrap.css">
+<style type="text/css">
+	#tablero {
+		width: 320px;
+	}
+	.casilla {
+		width: 40px;
+		height: 40px;
+		background: green;
+		display: inline-block;
+		float: left;
+	}
+	.casilla.white {
+		background: grey;
+	}
+	.ocultar {
+		display: none;
+	}
+	.pieza {
+		width: 40px;
+		height: 40px;
+		font-size: 2.2em;
+		line-height: unset;
+		top: -4px;
+    	left: 2px;
+    	text-align: center;
+	}
+	.pieza.white {
+		color: white;
+	}
+
+	.pieza.black {
+		color: black;
+	}
+</style>
+<div id="tablero">
+</div>
+
+<div class="casilla ocultar">
+</div>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="ficha.js"></script>
+<script type="text/javascript" src="peon.js"></script>
+<script type="text/javascript" src="torre.js"></script>
+<script type="text/javascript" src="caballo.js"></script>
+<script type="text/javascript" src="alfil.js"></script>
+<script type="text/javascript" src="reina.js"></script>
+<script type="text/javascript" src="rey.js"></script>
+<script type="text/javascript" src="tablero.js"></script>
+<script type="text/javascript" src="main.js"></script>
