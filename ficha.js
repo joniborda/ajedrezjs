@@ -6,7 +6,12 @@ function Ficha(tablero, fichas, x, y) {
 	this.y = y;
 	this.tablero = tablero;
 
-	this.ficha.draggable();
+	this.ficha.draggable(
+		{
+		containment: tablero,
+		drag: function(event, ui) {
+  		}
+	});
 
 	this.tablero.append(this.ficha);
 }
