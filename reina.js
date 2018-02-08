@@ -1,6 +1,6 @@
-function Reina(tablero, casillas, x, y, color) {
+function Reina(tablero, fichas, x, y, color) {
 	this.ficha = $('<div class="pieza glyphicon glyphicon-queen"></div>');
-	Ficha.call(this, tablero, casillas, x, y);
+	Ficha.call(this, tablero, fichas, x, y);
 	this.nombre = 'Reina';
 	this.setPosition(x, y);
 	this.setColor(color);

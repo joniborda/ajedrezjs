@@ -1,7 +1,7 @@
-function Peon(tablero, casillas, x, y, color) {
+function Peon(tablero, fichas, x, y, color) {
 	this.alpaso = false; // campo para saber si se puede comer al paso
 	this.ficha = $('<div class="pieza glyphicon glyphicon-pawn"></div>');
-	Ficha.call(this, tablero, casillas, x, y);
+	Ficha.call(this, tablero, fichas, x, y);
 	this.nombre = 'Peon';
 	this.setPosition(x, y);
 	this.setColor(color);
@@ -18,19 +18,20 @@ Peon.prototype.puedeMover = function(x, y) {
 		return true;
 	}
 
-	// una position en vertical
-	if (this.position == ARRIBA && this.y - y > 1) {
-		console.log('no puede mover para atras');
-		return false;
-	}
-
-	if (this.position == ABAJO && this.y - y < 1) {
-		console.log('no puede mover para atras');
-		return false;
-	}
 
 	if (Math.abs(this.y - y) !== 1) {
 		console.log('no puede mover');
+		return false;
+	}
+
+	// una position en vertical
+	if (this.position == ABAJO && this.y - y == 1) {
+		console.log('no puede mover para atras');
+		return false;
+	}
+
+	if (this.position == ARRIBA && this.y - y == 1) {
+		console.log('no puede mover para atras');
 		return false;
 	}
 
@@ -42,7 +43,7 @@ Peon.prototype.puedeMover = function(x, y) {
 	// si hay una pieza y en x solo hay uno de diferencia puede comer
 	if (
 		Math.abs(this.y - y) === 1 && Math.abs(this.x - x) === 1 && 
-		this.casillas[x] && this.casillas[x][y]
+		this.fichas[x] && this.fichas[x][y]
 	) {
 		return true;
 	} else {

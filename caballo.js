@@ -1,6 +1,6 @@
-function Caballo(tablero, casillas, x, y, color) {
+function Caballo(tablero, fichas, x, y, color) {
 	this.ficha = $('<div class="pieza glyphicon glyphicon-knight"></div>');
-	Ficha.call(this, tablero, casillas, x, y);
+	Ficha.call(this, tablero, fichas, x, y);
 	this.nombre = 'Caballo';
 	this.setPosition(x, y);
 	this.setColor(color);

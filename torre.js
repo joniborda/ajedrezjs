@@ -1,6 +1,6 @@
-function Torre(tablero, casillas, x, y, color) {
+function Torre(tablero, fichas, x, y, color) {
 	this.ficha = $('<div class="pieza glyphicon glyphicon-tower"></div>');
-	Ficha.call(this, tablero, casillas, x, y);
+	Ficha.call(this, tablero, fichas, x, y);
 	this.nombre = 'Torre';
 	this.setPosition(x, y);
 	this.setColor(color);
