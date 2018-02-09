@@ -19,6 +19,7 @@ function Tablero(tablero) {
 	this.tablero = tablero;
 	this.fichas = [];
 	this.casillas = [];
+
 	var casilla = null;
 
 	for (var j = 0; j < 8; j++) {
@@ -44,6 +45,10 @@ function Tablero(tablero) {
 			this.casillas[i][j] = casilla;
 		}
 	}
+
+	// esto deberia estar en la clase game
+	this.turno = null;
+	this.jugadores = [];
 };
 
 Tablero.prototype.iniciar = function() {
@@ -73,13 +78,40 @@ Tablero.prototype.iniciar = function() {
 	pieza = new Alfil(this.tablero, this.fichas, 5, 7, NEGRA);
 	pieza = new Caballo(this.tablero, this.fichas, 6, 7, NEGRA);
 	pieza = new Torre(this.tablero, this.fichas, 7, 7, NEGRA);
+
+	this.jugadores[0] = new Jugador(0, BLANCA);
+	this.jugadores[1] = new Jugador(1, NEGRA);
 }
 
 Tablero.prototype.mover = function(x1, y1, x2, y2) {
 	if (this.fichas[x1][y1]) {
-		return this.fichas[x1][y1].mover(x2,y2);
+		if (this.fichas[x1][y1].mover(x2,y2)) {
+			if (this.turno == BLANCA) {
+				this.setTurno(NEGRA);
+			} else {
+				this.setTurno(BLANCA);
+			}
+
+			return true;
+		}
 	} else {
 		// mostrar mensaje de que no hay pieza en esa posicion
 	}
 	return false;
+}
+
+Tablero.prototype.setTurno = function(turno) {
+	this.turno = turno;
+	for (var i = 0; i < 8; i++) {
+		for (var j = 0; j < 8; j++) {
+			if (this.fichas[i][j]) {
+				if (this.fichas[i][j].color == this.turno) {
+					this.fichas[i][j].ficha.draggable('enable');
+				} else {
+					this.fichas[i][j].ficha.draggable('disable');
+				}
+			}
+
+		}
+	}
 }

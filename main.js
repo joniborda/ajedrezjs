@@ -29,12 +29,13 @@ for (var j = 0; j < 8; j++) {
 			drop: function( event, ui ) {
 
 				if ($(ui).length) {
-					tablero.mover(
+					if (tablero.mover(
 						parseInt(ui.draggable.attr('x')), 
 						parseInt(ui.draggable.attr('y')), 
 						parseInt($(this).attr('x')), 
 						parseInt($(this).attr('y'))
-					);
+					)) {
+					}
 				}
 			}
 		});
@@ -48,10 +49,12 @@ for (var j = 0; j < 8; j++) {
 			$(tablero.fichas[j][i].ficha).draggable({
 				containment: tablero.tablero,
 				start: function(event, ui) {
-					for (var o = 0; o < 8; o++) {
-						for (var p = 0; p < 8; p++) {
-							if (tablero.fichas[parseInt($(this).attr('x'))][parseInt($(this).attr('y'))].habilitadaMover(o, p)) {
-								tablero.casillas[o][p].append('<div class="casilla_habilitada"><div>');
+					if (tablero.fichas[parseInt($(this).attr('x'))][parseInt($(this).attr('y'))].color == tablero.jugadores[tablero.turno].color) {
+						for (var o = 0; o < 8; o++) {
+							for (var p = 0; p < 8; p++) {
+								if (tablero.fichas[parseInt($(this).attr('x'))][parseInt($(this).attr('y'))].habilitadaMover(o, p)) {
+									tablero.casillas[o][p].append('<div class="casilla_habilitada"><div>');
+								}
 							}
 						}
 					}
@@ -63,3 +66,5 @@ for (var j = 0; j < 8; j++) {
 		}
 	}
 }
+
+tablero.setTurno(BLANCA);
