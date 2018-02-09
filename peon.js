@@ -20,18 +20,18 @@ Peon.prototype.puedeMover = function(x, y) {
 
 
 	if (Math.abs(this.y - y) !== 1) {
-		console.log('no puede mover');
+		// no puede mover
 		return false;
 	}
 
 	// una position en vertical
 	if (this.position == ABAJO && this.y - y == -1) {
-		console.log('no puede mover para atras');
+		// no puede mover para atras
 		return false;
 	}
 
 	if (this.position == ARRIBA && this.y - y == 1) {
-		console.log('no puede mover para atras');
+		// no puede mover para atras
 		return false;
 	}
 
@@ -39,7 +39,7 @@ Peon.prototype.puedeMover = function(x, y) {
 	if (Math.abs(this.y - y) === 1 && this.x - x === 0) {
 		if (this.fichas[x][y]) {
 			if (this.fichas[x][y].color !== this.color) {
-				console.log('no puede comer en vertical');
+				// no puede comer en vertical
 				return false;
 			}
 		}
@@ -53,7 +53,7 @@ Peon.prototype.puedeMover = function(x, y) {
 	) {
 		return true;
 	} else {
-		console.log('no puede mover en diagonal sin comer');
+		// no puede mover en diagonal sin comer
 		return false;
 	}
 }

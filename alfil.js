@@ -13,6 +13,5 @@ Alfil.prototype.puedeMover = function(x, y) {
 		return true;
 	}
 
-	console.log('no puede mover asi el alfil');
 	return false;
 }

@@ -27,14 +27,8 @@ for (var j = 0; j < 8; j++) {
 	for (var i = 0; i < 8; i++) {
 		tablero.casillas[j][i].droppable({
 			drop: function( event, ui ) {
-/*
-				console.log("x1 " + ui.draggable.attr('x'));
-				console.log("y1 " + ui.draggable.attr('y'));
-				console.log("x2 " + $(this).attr('x'));
-				console.log("y2 " + $(this).attr('y'));
-*/
+
 				if ($(ui).length) {
-/*					console.log(tablero);*/
 					tablero.mover(
 						parseInt(ui.draggable.attr('x')), 
 						parseInt(ui.draggable.attr('y')), 
@@ -44,5 +38,28 @@ for (var j = 0; j < 8; j++) {
 				}
 			}
 		});
+	}
+}
+
+// esto tiene que estar afuera porque sino no tiene la intancia
+for (var j = 0; j < 8; j++) {
+	for (var i = 0; i < 8; i++) {
+		if (tablero.fichas[j][i]) {
+			$(tablero.fichas[j][i].ficha).draggable({
+				containment: tablero.tablero,
+				start: function(event, ui) {
+					for (var o = 0; o < 8; o++) {
+						for (var p = 0; p < 8; p++) {
+							if (tablero.fichas[parseInt($(this).attr('x'))][parseInt($(this).attr('y'))].habilitadaMover(o, p)) {
+								tablero.casillas[o][p].append('<div class="casilla_habilitada"><div>');
+							}
+						}
+					}
+		  		},
+		  		stop: function(event, ui) {
+		  			tablero.tablero.find('.casilla_habilitada').remove();
+		  		}
+			});
+		}
 	}
 }

@@ -6,13 +6,6 @@ function Ficha(tablero, fichas, x, y) {
 	this.y = y;
 	this.tablero = tablero;
 
-	this.ficha.draggable(
-		{
-		containment: tablero,
-		drag: function(event, ui) {
-  		}
-	});
-
 	this.tablero.append(this.ficha);
 }
 Ficha.prototype.setPosition = function(x, y) {
@@ -37,21 +30,7 @@ Ficha.prototype.setColor = function(color) {
 }
 Ficha.prototype.mover = function(x, y) {
 
-	if (x < 0 || y < 0 || x > 7 || y > 7) {
-		console.log('se fue del tablero');
-		this.fichas[this.x][this.y].setPosition(this.x, this.y);
-		return false;
-	}
-
-	if (this.fichas[x][y]) {
-		if (this.fichas[x][y].color == this.color) {
-			console.log('no puede comer al del mismo color');
-			this.fichas[this.x][this.y].setPosition(this.x, this.y);
-			return false;
-		}
-	}
-
-	if (this.puedeMover(x, y)) {
+	if (this.habilitadaMover(x, y)) {
 		this.movio = true;
 		this.fichas[this.x][this.y] = null;
 
@@ -59,7 +38,7 @@ Ficha.prototype.mover = function(x, y) {
 			this.enrocar(x, y);
 		} else {
 			if (this.fichas[x][y]) {
-				console.log('comio ' + this.fichas[x][y].nombre);
+				//comio ' + this.fichas[x][y].nombre
 				this.fichas[x][y].remover();
 			}
 			this.setPosition(x, y);
@@ -85,7 +64,7 @@ Ficha.prototype.nadieVertical = function(x, y) {
 		if (this.y - y < 0) {
 			for(var i = this.y + 1; i < y; i++) {
 				if (this.fichas[x][i]) {
-					console.log('no puede porque hay alguien en el medio en vertical');
+					//no puede porque hay alguien en el medio en vertical
 					return false;
 				}
 			}
@@ -96,7 +75,7 @@ Ficha.prototype.nadieVertical = function(x, y) {
 		if (this.y - y > 0) {
 			for(var i = y + 1; i < this.y; i++) {
 				if (this.fichas[x][i]) {
-					console.log('no puede porque hay alguien en el medio en vertical');
+					//no puede porque hay alguien en el medio en vertical
 					return false;
 				}
 			}
@@ -113,7 +92,7 @@ Ficha.prototype.nadieHorizontal = function(x, y) {
 		if (this.x - x < 0) {
 			for(var i = this.x + 1; i < x; i++) {
 				if (this.fichas[i][y]) {
-					console.log('no puede porque hay alguien en el medio en horizontal');
+					//no puede porque hay alguien en el medio en horizontal
 					return false;
 				}
 			}
@@ -124,7 +103,7 @@ Ficha.prototype.nadieHorizontal = function(x, y) {
 		if (this.x - x > 0) {
 			for(var i = x + 1; i < this.x; i++) {
 				if (this.fichas[i][y]) {
-					console.log('no puede porque hay alguien en el medio en horizontal');
+					//no puede porque hay alguien en el medio en horizontal
 					return false;
 				}
 			}
@@ -137,13 +116,13 @@ Ficha.prototype.nadieHorizontal = function(x, y) {
 Ficha.prototype.nadieDiagonal = function(x, y) {
 	// ver que no haya piezas en el medio
 	if (this.x - x === 0  || this.y - y === 0) {
-		console.log('mueve en vertical ¿?');
+		//mueve en vertical ¿?
 		return false;
 	}
 
 	// tiene que mover la misma distancia en verticual como en horizontal
 	if (Math.abs(this.y - y) !== Math.abs(this.x - x)) {
-		console.log('no mueve la misma distancia');
+		//no mueve la misma distancia
 		return false;
 	}
 
@@ -152,14 +131,14 @@ Ficha.prototype.nadieDiagonal = function(x, y) {
 		if (this.y - y < 0) {
 			for(var i = 1; i < x - this.x; i++) {
 				if (this.fichas[this.x + i][this.y + i]) {
-					console.log('no puede porque hay alguien en el medio en diagonal para abajo derecha');
+					//no puede porque hay alguien en el medio en diagonal para abajo derecha
 					return false;
 				}
 			}
 		} else {
 			for(var i = 1; i < x - this.x; i++) {
 				if (this.fichas[this.x + i][this.y - i]) {
-					console.log('no puede porque hay alguien en el medio en diagonal para arriba derecha');
+					//no puede porque hay alguien en el medio en diagonal para arriba derecha
 					return false;
 				}
 			}
@@ -171,14 +150,14 @@ Ficha.prototype.nadieDiagonal = function(x, y) {
 		if (this.y - y < 0) {
 			for(var i = 1; i < this.x -x; i++) {
 				if (this.fichas[this.x - i][this.y + i]) {
-					console.log('no puede porque hay alguien en el medio en diagonal para abajo izquierda');
+					//no puede porque hay alguien en el medio en diagonal para abajo izquierda
 					return false;
 				}
 			}
 		} else {
 			for(var i = 1; i < this.x -x; i++) {
 				if (this.fichas[this.x - i][this.y - i]) {
-					console.log('no puede porque hay alguien en el medio en diagonal para arriba izquierda');
+					//no puede porque hay alguien en el medio en diagonal para arriba izquierda
 					return false;
 				}
 			}
@@ -186,4 +165,25 @@ Ficha.prototype.nadieDiagonal = function(x, y) {
 	}
 
 	return true;
+}
+
+Ficha.prototype.habilitadaMover = function(x, y) {
+
+	if (x < 0 || y < 0 || x > 7 || y > 7) {
+		//se fue del tablero
+		this.fichas[this.x][this.y].setPosition(this.x, this.y);
+		return false;
+	}
+
+	if (this.fichas[x][y]) {
+		if (this.fichas[x][y].color == this.color) {
+			//no puede comer al del mismo color
+			this.fichas[this.x][this.y].setPosition(this.x, this.y);
+			return false;
+		}
+	}
+
+	if (this.puedeMover(x, y)) {
+		return true;
+	}
 }

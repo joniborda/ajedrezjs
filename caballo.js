@@ -19,6 +19,5 @@ Caballo.prototype.puedeMover = function(x, y) {
 		return true;
 	}
 
-	console.log('no puede mover asi el caballo');
 	return false;
 }

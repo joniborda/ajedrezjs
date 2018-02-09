@@ -11,29 +11,34 @@ Rey.prototype.puedeMover = function(x, y) {
 
 	this.enroque = 0;
 	if (this.movio === false) {
-		// enroque izquierdo
-		if (this.x - x == 2 && this.fichas[0][y].movio === false && this.nadieHorizontal(x, y)) {
-			if (this.fichas[0][y].nadieHorizontal(x+1, y)) {
-				this.enroque = IZQUIERDA;
-				return true;
+		if (this.y == y && Math.abs(this.x - x) == 2) {
+			if (x == 1 || x == 5) {
+				 // es 1 o 5
+				// enroque izquierdo
+				if (this.fichas[0][this.y] && this.fichas[0][this.y].movio === false && this.nadieHorizontal(x, y)) {
+					if (this.fichas[0][this.y].nadieHorizontal(x, y)) {
+						this.enroque = IZQUIERDA;
+						return true;
+					}
+					// no puede hacer enroque a la izquierda
+				}
+				// enroque derecho
+				if (this.fichas[7][this.y] && this.fichas[7][this.y].movio === false && this.nadieHorizontal(x, y)) {
+
+					if (this.fichas[7][this.y].nadieHorizontal(x, y)) {
+						this.enroque = DERECHA;
+						return true;
+					}
+					// no puede hacer enroque a la izquierda
+				}
 			}
-			console.log('no puede hacer enroque a la izquierda');
 		}
 
-		// enroque derecho
-		if (x - this.x == 2 && this.fichas[7][y].movio === false && this.nadieHorizontal(x, y)) {
-
-			if (this.fichas[0][y].nadieHorizontal(x-1, y)) {
-				this.enroque = DERECHA;
-				return true;
-			}
-			console.log('no puede hacer enroque a la izquierda');
-		}
 	}
 
 	// una position
 	if (Math.abs(this.y - y) > 1 || Math.abs(this.x - x) > 1) {
-		console.log('no puede mover');
+		// no puede mover
 		return false;
 	}
 
@@ -53,8 +58,8 @@ Rey.prototype.enrocar = function(x, y) {
 	}
 
 	if (this.enroque == DERECHA) {
-		this.fichas[0][y].setPosition(x-1, y);
-		this.fichas[0][y] = this.fichas[x-1][y];
-		this.fichas[0][y] = null;
+		this.fichas[7][y].setPosition(x-1, y);
+		this.fichas[7][y] = this.fichas[x-1][y];
+		this.fichas[7][y] = null;
 	}
 }
