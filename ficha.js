@@ -150,18 +150,16 @@ Ficha.prototype.nadieDiagonal = function(x, y) {
 	// arranco de this.x hasta x (sin las puntas)
 	if (this.x - x < 0) {
 		if (this.y - y < 0) {
-			for(var i = 1; i < x-1; i++) {
+			for(var i = 1; i < x - this.x; i++) {
 				if (this.fichas[this.x + i][this.y + i]) {
-					console.log('no puede porque hay alguien en el medio en diagonal para abajo');
+					console.log('no puede porque hay alguien en el medio en diagonal para abajo derecha');
 					return false;
 				}
 			}
-		}
-
-		if (this.y - y > 0) {
-			for(var i = x; i < this.x + 1; i++) {
-				if (this.fichas[i][i]) {
-					console.log('no puede porque hay alguien en el medio en diagonal para arriba');
+		} else {
+			for(var i = 1; i < x - this.x; i++) {
+				if (this.fichas[this.x + i][this.y - i]) {
+					console.log('no puede porque hay alguien en el medio en diagonal para arriba derecha');
 					return false;
 				}
 			}
@@ -171,25 +169,20 @@ Ficha.prototype.nadieDiagonal = function(x, y) {
 	// arranco de x hasta this.x (sin las puntas)
 	if (this.x - x > 0) {
 		if (this.y - y < 0) {
-			for(var i = x + 1; i < this.x; i++) {
-				if (this.fichas[i][i]) {
-					console.log('no puede porque hay alguien en el medio en diagonal para abajo');
+			for(var i = 1; i < this.x -x; i++) {
+				if (this.fichas[this.x - i][this.y + i]) {
+					console.log('no puede porque hay alguien en el medio en diagonal para abajo izquierda');
 					return false;
 				}
 			}
-		}
-
-		if (this.y - y > 0) {
-			for(var i = x; i < this.x - 1; i++) {
-				console.log(" x " + (this.x - i));
-				console.log(" y " + (this.y - i));
+		} else {
+			for(var i = 1; i < this.x -x; i++) {
 				if (this.fichas[this.x - i][this.y - i]) {
-					console.log('no puede porque hay alguien en el medio en diagonal para arriba');
+					console.log('no puede porque hay alguien en el medio en diagonal para arriba izquierda');
 					return false;
 				}
 			}
 		}
-		
 	}
 
 	return true;

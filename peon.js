@@ -25,7 +25,7 @@ Peon.prototype.puedeMover = function(x, y) {
 	}
 
 	// una position en vertical
-	if (this.position == ABAJO && this.y - y == 1) {
+	if (this.position == ABAJO && this.y - y == -1) {
 		console.log('no puede mover para atras');
 		return false;
 	}
@@ -37,6 +37,12 @@ Peon.prototype.puedeMover = function(x, y) {
 
 	// si mueve uno
 	if (Math.abs(this.y - y) === 1 && this.x - x === 0) {
+		if (this.fichas[x][y]) {
+			if (this.fichas[x][y].color !== this.color) {
+				console.log('no puede comer en vertical');
+				return false;
+			}
+		}
 		return true;
 	}
 
