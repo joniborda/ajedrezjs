@@ -46,8 +46,23 @@ Ficha.prototype.mover = function(x, y) {
 			
 		}
 
+		if (this.reyEnVertical(x,y)) {
+			alert('rey en vertical');
+		}
+
+		if (this.reyEnHorizontal(x,y)) {
+			alert('rey en horizontal');
+		}
+		
+		//TODO: falta ver el jaque en horizontal
+
+		// TODO: falta ver el jaque en L
+
+		// TODO: falta ver que pieza es para ver que jaque puede generar.
+
 		return true;
 	}
+
 	this.fichas[this.x][this.y].setPosition(this.x, this.y);
 	return false;
 }
@@ -186,4 +201,52 @@ Ficha.prototype.habilitadaMover = function(x, y) {
 	if (this.puedeMover(x, y)) {
 		return true;
 	}
+}
+
+Ficha.prototype.reyEnVertical = function() {
+
+	for(var i = this.y + 1; i < 8; i++) {
+		if (this.fichas[this.x][i]) {
+		console.log("abajo " + this.fichas[this.x][i].nombre);
+			if (this.fichas[this.x][i].color !== this.color && this.fichas[this.x][i].nombre == REY) {
+				return true;
+			}
+			break;
+		}
+	}
+
+	for(var i = this.y - 1; i >= 0 ; i--) {
+		if (this.fichas[this.x][i]) {
+		console.log("arriba " + this.fichas[this.x][i].nombre);
+			if (this.fichas[this.x][i].color !== this.color && this.fichas[this.x][i].nombre == REY) {
+				return true;
+			}
+			break;
+		}
+	}
+	return false;
+}
+
+Ficha.prototype.reyEnHorizontal = function() {
+
+	for(var i = this.x + 1; i < 8; i++) {
+		if (this.fichas[i][this.y]) {
+		console.log("derecha " + this.fichas[i][this.y].nombre);
+			if (this.fichas[i][this.y].color !== this.color && this.fichas[i][this.y].nombre == REY) {
+				return true;
+			}
+			break;
+		}
+	}
+
+	for(var i = this.x - 1; i >= 0 ; i--) {
+		if (this.fichas[i][this.y]) {
+		console.log("arriba " + this.fichas[i][this.y].nombre);
+			if (this.fichas[i][this.y].color !== this.color && this.fichas[i][this.y].nombre == REY) {
+				return true;
+			}
+			break;
+		}
+	}
+	return false;
 }

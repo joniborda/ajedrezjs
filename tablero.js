@@ -14,6 +14,7 @@ const BLANCA = 0;
 const NEGRA = 1;
 const ARRIBA = 1;
 const ABAJO = 0;
+const REY = 'Rey';
 
 function Tablero(tablero) {
 	this.tablero = tablero;

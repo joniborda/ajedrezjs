@@ -29,5 +29,4 @@ Reina.prototype.puedeMover = function(x, y) {
 	}
 	
 	return false;
-
 }
