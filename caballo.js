@@ -1,7 +1,7 @@
 function Caballo(tablero, fichas, x, y, color) {
 	this.ficha = $('<div class="pieza glyphicon glyphicon-knight"></div>');
 	Ficha.call(this, tablero, fichas, x, y);
-	this.nombre = 'Caballo';
+	this.nombre = CABALLO;
 	this.setPosition(x, y);
 	this.setColor(color);
 };

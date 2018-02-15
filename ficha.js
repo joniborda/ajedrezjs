@@ -46,19 +46,19 @@ Ficha.prototype.mover = function(x, y) {
 			
 		}
 
-		if (this.reyEnVertical(x,y)) {
-			alert('rey en vertical');
+		for (var i = 0; i < 8; i++) {
+			for (var j = 0; j < 8; j++) {
+				if (this.fichas[i][j] && this.fichas[i][j].generaJaque()) {
+					alert('jaque');
+				}
+			}
 		}
-
-		if (this.reyEnHorizontal(x,y)) {
-			alert('rey en horizontal');
-		}
-		
-		//TODO: falta ver el jaque en horizontal
-
-		// TODO: falta ver el jaque en L
 
 		// TODO: falta ver que pieza es para ver que jaque puede generar.
+
+		// TODO: se deberia revisar todas las piezas en cada movimiento porque 
+		// por ahí una mueve una pieza que lo que hace es despejar 
+		// el camino hacia el jaque
 
 		return true;
 	}
@@ -207,7 +207,6 @@ Ficha.prototype.reyEnVertical = function() {
 
 	for(var i = this.y + 1; i < 8; i++) {
 		if (this.fichas[this.x][i]) {
-		console.log("abajo " + this.fichas[this.x][i].nombre);
 			if (this.fichas[this.x][i].color !== this.color && this.fichas[this.x][i].nombre == REY) {
 				return true;
 			}
@@ -217,7 +216,6 @@ Ficha.prototype.reyEnVertical = function() {
 
 	for(var i = this.y - 1; i >= 0 ; i--) {
 		if (this.fichas[this.x][i]) {
-		console.log("arriba " + this.fichas[this.x][i].nombre);
 			if (this.fichas[this.x][i].color !== this.color && this.fichas[this.x][i].nombre == REY) {
 				return true;
 			}
@@ -231,7 +229,6 @@ Ficha.prototype.reyEnHorizontal = function() {
 
 	for(var i = this.x + 1; i < 8; i++) {
 		if (this.fichas[i][this.y]) {
-		console.log("derecha " + this.fichas[i][this.y].nombre);
 			if (this.fichas[i][this.y].color !== this.color && this.fichas[i][this.y].nombre == REY) {
 				return true;
 			}
@@ -241,12 +238,188 @@ Ficha.prototype.reyEnHorizontal = function() {
 
 	for(var i = this.x - 1; i >= 0 ; i--) {
 		if (this.fichas[i][this.y]) {
-		console.log("arriba " + this.fichas[i][this.y].nombre);
 			if (this.fichas[i][this.y].color !== this.color && this.fichas[i][this.y].nombre == REY) {
 				return true;
 			}
 			break;
 		}
+	}
+	return false;
+}
+
+Ficha.prototype.reyEnDiagonal = function() {
+
+	// arranco izquierda arriba
+	var x = this.x - 1;
+	var y = this.y - 1;
+	while(x >= 0 && y >= 0) {
+		if (this.fichas[x][y]) {
+			if (this.fichas[x][y].color !== this.color && this.fichas[x][y].nombre == REY) {
+				return true;
+			}
+			break;
+		}
+		x--;
+		y--;
+	}
+
+	// izquierda abajo
+	x = this.x - 1;
+	y = this.y + 1;
+	while(x >= 0 && y < 8) {
+		if (this.fichas[x][y]) {
+			if (this.fichas[x][y].color !== this.color && this.fichas[x][y].nombre == REY) {
+				return true;
+			}
+			break;
+		}
+		x--;
+		y++;
+	}
+
+	// derecha abajo
+	x = this.x + 1;
+	y = this.y + 1;
+	while(x < 8 && y < 8) {
+		if (this.fichas[x][y]) {
+			if (this.fichas[x][y].color !== this.color && this.fichas[x][y].nombre == REY) {
+				return true;
+			}
+			break;
+		}
+		x++;
+		y++;
+	}
+
+	// derecha arriba
+	x = this.x + 1;
+	y = this.y - 1;
+	while(x < 8 && y >= 0) {
+		if (this.fichas[x][y]) {
+			if (this.fichas[x][y].color !== this.color && this.fichas[x][y].nombre == REY) {
+				return true;
+			}
+			break;
+		}
+		x++;
+		y--;
+	}
+
+	return false;
+}
+
+Ficha.prototype.reyEnEle = function() {
+	// dos izquierda uno arriba
+	var x = this.x - 2;
+	var y = this.y - 1;
+
+	if (x >= 0 && x < 8 && y >= 0 && y < 8 && this.fichas[x][y]) {
+		if (this.fichas[x][y].color !== this.color && this.fichas[x][y].nombre == REY) {
+			return true;
+		}
+	}
+
+	// dos izquierda uno abajo
+	x = this.x - 2;
+	y = this.y + 1;
+
+	if (x >= 0 && x < 8 && y >= 0 && y < 8 && this.fichas[x][y]) {
+		if (this.fichas[x][y].color !== this.color && this.fichas[x][y].nombre == REY) {
+			return true;
+		}
+	}
+
+	// dos arriba uno izquierda
+	x = this.x - 1;
+	y = this.y - 2;
+
+	if (x >= 0 && x < 8 && y >= 0 && y < 8 && this.fichas[x][y]) {
+		if (this.fichas[x][y].color !== this.color && this.fichas[x][y].nombre == REY) {
+			return true;
+		}
+	}
+
+	// dos arriba uno derecha
+	x = this.x + 1;
+	y = this.y - 2;
+
+	if (x >= 0 && x < 8 && y >= 0 && y < 8 && this.fichas[x][y]) {
+		if (this.fichas[x][y].color !== this.color && this.fichas[x][y].nombre == REY) {
+			return true;
+		}
+	}
+
+	// dos abajo uno izquierda
+	x = this.x - 1;
+	y = this.y + 2;
+
+	if (x >= 0 && x < 8 && y >= 0 && y < 8 && this.fichas[x][y]) {
+		if (this.fichas[x][y].color !== this.color && this.fichas[x][y].nombre == REY) {
+			return true;
+		}
+	}
+	// dos abajo uno derecha
+	x = this.x + 1;
+	y = this.y + 2;
+
+	if (x >= 0 && x < 8 && y >= 0 && y < 8 && this.fichas[x][y]) {
+		if (this.fichas[x][y].color !== this.color && this.fichas[x][y].nombre == REY) {
+			return true;
+		}
+	}
+
+	// dos derecha uno arriba
+	x = this.x + 2;
+	y = this.y - 1;
+
+	if (x >= 0 && x < 8 && y >= 0 && y < 8 && this.fichas[x][y]) {
+		if (this.fichas[x][y].color !== this.color && this.fichas[x][y].nombre == REY) {
+			return true;
+		}
+	}
+
+	// dos derecha uno abajo
+	x = this.x + 2;
+	y = this.y + 1;
+
+	if (x >= 0 && x < 8 && y >= 0 && y < 8 && this.fichas[x][y]) {
+		if (this.fichas[x][y].color !== this.color && this.fichas[x][y].nombre == REY) {
+			return true;
+		}
+	}
+}
+
+Ficha.prototype.generaJaque = function() {
+
+	switch(this.nombre) {
+		case PEON:
+			// TODO:diagonal de a uno pero para adelante
+			if (this.reyEnDiagonal()) {
+				return true;
+			}
+			break;
+		case CABALLO:
+			if (this.reyEnEle()) {
+				return true;
+			}
+			break;
+		case TORRE:
+			if (this.reyEnVertical()) {
+				return true;
+			}
+			break;
+		case REINA:
+			if (this.reyEnVertical() || this.reyEnDiagonal()) {
+				return true;
+			}
+			break;
+		case REY:
+			// TODO:diagonal pero de a uno
+			if (this.reyEnDiagonal()) {
+				return true;
+			}
+			break;
+
 	}
 	return false;
 }

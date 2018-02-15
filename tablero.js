@@ -14,6 +14,11 @@ const BLANCA = 0;
 const NEGRA = 1;
 const ARRIBA = 1;
 const ABAJO = 0;
+const PEON = 'Peon';
+const TORRE = 'Torre';
+const CABALLO = 'Caballo';
+const ALFIL = 'Alfil';
+const REINA = 'Reina';
 const REY = 'Rey';
 
 function Tablero(tablero) {

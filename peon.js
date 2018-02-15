@@ -2,7 +2,7 @@ function Peon(tablero, fichas, x, y, color) {
 	this.alpaso = false; // campo para saber si se puede comer al paso
 	this.ficha = $('<div class="pieza glyphicon glyphicon-pawn"></div>');
 	Ficha.call(this, tablero, fichas, x, y);
-	this.nombre = 'Peon';
+	this.nombre = PEON;
 	this.setPosition(x, y);
 	this.setColor(color);
 };
