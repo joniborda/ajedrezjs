@@ -41,6 +41,28 @@ Rey.prototype.puedeMover = function(x, y) {
 		// no puede mover
 		return false;
 	}
+	
+	var tmp_x = this.x;
+	var tmp_y = this.y;
+	var tmp_ficha = this.fichas[x][y];
+	
+	this.fichas[this.x][this.y] = null;
+	this.fichas[x][y] = this;
+	this.fichas[x][y].setPosition(x, y);
+	for (var i = 0; i < 8; i++) {
+		for (var j = 0; j < 8; j++) {
+			if (this.fichas[i][j] && this.fichas[i][j].generaJaque() && this.fichas[i][j].color !== this.color) {
+				this.fichas[x][y] = tmp_ficha;
+				this.fichas[tmp_x][tmp_y] = this;
+				this.fichas[tmp_x][tmp_y].setPosition(tmp_x, tmp_y);
+				return false;
+			}
+		}
+	}
+
+	this.fichas[x][y] = tmp_ficha;
+	this.fichas[tmp_x][tmp_y] = this;
+	this.fichas[tmp_x][tmp_y].setPosition(tmp_x, tmp_y);
 
 	return true;
 }
@@ -61,5 +83,13 @@ Rey.prototype.enrocar = function(x, y) {
 		this.fichas[7][y].setPosition(x-1, y);
 		this.fichas[7][y] = this.fichas[x-1][y];
 		this.fichas[7][y] = null;
+	}
+
+	for (var i = 0; i < 8; i++) {
+		for (var j = 0; j < 8; j++) {
+			if (this.fichas[i][j] && this.fichas[i][j].generaJaque()) {
+				alert('jaque');
+			}
+		}
 	}
 }

@@ -203,13 +203,16 @@ Ficha.prototype.habilitadaMover = function(x, y) {
 	}
 }
 
-Ficha.prototype.reyEnVertical = function() {
+Ficha.prototype.reyEnVertical = function(unMovimiento = false) {
 
 	for(var i = this.y + 1; i < 8; i++) {
 		if (this.fichas[this.x][i]) {
 			if (this.fichas[this.x][i].color !== this.color && this.fichas[this.x][i].nombre == REY) {
 				return true;
 			}
+			break;
+		}
+		if (unMovimiento) {
 			break;
 		}
 	}
@@ -221,17 +224,24 @@ Ficha.prototype.reyEnVertical = function() {
 			}
 			break;
 		}
+
+		if (unMovimiento) {
+			break;
+		}
 	}
 	return false;
 }
 
-Ficha.prototype.reyEnHorizontal = function() {
+Ficha.prototype.reyEnHorizontal = function(unMovimiento = false) {
 
 	for(var i = this.x + 1; i < 8; i++) {
 		if (this.fichas[i][this.y]) {
 			if (this.fichas[i][this.y].color !== this.color && this.fichas[i][this.y].nombre == REY) {
 				return true;
 			}
+			break;
+		}
+		if (unMovimiento) {
 			break;
 		}
 	}
@@ -243,11 +253,17 @@ Ficha.prototype.reyEnHorizontal = function() {
 			}
 			break;
 		}
+		if (unMovimiento) {
+			break;
+		}
 	}
 	return false;
 }
 
-Ficha.prototype.reyEnDiagonal = function() {
+/** unMovimiento es para saber que mueve solo un movimiento.
+*	adelante es para saber que solo mueve para adelante.
+*/
+Ficha.prototype.reyEnDiagonal = function(unMovimiento = false, adelante = false) {
 
 	// arranco izquierda arriba
 	var x = this.x - 1;
@@ -255,10 +271,22 @@ Ficha.prototype.reyEnDiagonal = function() {
 	while(x >= 0 && y >= 0) {
 		if (this.fichas[x][y]) {
 			if (this.fichas[x][y].color !== this.color && this.fichas[x][y].nombre == REY) {
-				return true;
+				
+				if (adelante) {
+					if (this.position == ABAJO) {
+						return true;
+					}
+				} else {
+					return true;
+				}
 			}
 			break;
 		}
+		
+		if (unMovimiento) {
+			break;
+		}
+
 		x--;
 		y--;
 	}
@@ -269,8 +297,18 @@ Ficha.prototype.reyEnDiagonal = function() {
 	while(x >= 0 && y < 8) {
 		if (this.fichas[x][y]) {
 			if (this.fichas[x][y].color !== this.color && this.fichas[x][y].nombre == REY) {
-				return true;
+				if (adelante) {
+					if (this.position == ARRIBA) {
+						return true;
+					}
+				} else {
+					return true;
+				}
 			}
+			break;
+		}
+
+		if (unMovimiento) {
 			break;
 		}
 		x--;
@@ -283,8 +321,17 @@ Ficha.prototype.reyEnDiagonal = function() {
 	while(x < 8 && y < 8) {
 		if (this.fichas[x][y]) {
 			if (this.fichas[x][y].color !== this.color && this.fichas[x][y].nombre == REY) {
-				return true;
+				if (adelante) {
+					if (this.position == ARRIBA) {
+						return true;
+					}
+				} else {
+					return true;
+				}
 			}
+			break;
+		}
+		if (unMovimiento) {
 			break;
 		}
 		x++;
@@ -297,8 +344,17 @@ Ficha.prototype.reyEnDiagonal = function() {
 	while(x < 8 && y >= 0) {
 		if (this.fichas[x][y]) {
 			if (this.fichas[x][y].color !== this.color && this.fichas[x][y].nombre == REY) {
-				return true;
+				if (adelante) {
+					if (this.position == ABAJO) {
+						return true;
+					}
+				} else {
+					return true;
+				}
 			}
+			break;
+		}
+		if (unMovimiento) {
 			break;
 		}
 		x++;
@@ -393,8 +449,7 @@ Ficha.prototype.generaJaque = function() {
 
 	switch(this.nombre) {
 		case PEON:
-			// TODO:diagonal de a uno pero para adelante
-			if (this.reyEnDiagonal()) {
+			if (this.reyEnDiagonal(true, true)) {
 				return true;
 			}
 			break;
@@ -404,22 +459,36 @@ Ficha.prototype.generaJaque = function() {
 			}
 			break;
 		case TORRE:
-			if (this.reyEnVertical()) {
+			if (this.reyEnVertical() || this.reyEnHorizontal()) {
 				return true;
 			}
 			break;
 		case REINA:
-			if (this.reyEnVertical() || this.reyEnDiagonal()) {
+			if (this.reyEnVertical() || this.reyEnHorizontal() || this.reyEnDiagonal()) {
+				return true;
+			}
+			break;
+		case ALFIL:
+			if (this.reyEnDiagonal()) {
 				return true;
 			}
 			break;
 		case REY:
 			// TODO:diagonal pero de a uno
-			if (this.reyEnDiagonal()) {
+			if (this.reyEnVertical(true) || this.reyEnHorizontal(true) || this.reyEnDiagonal(true)) {
 				return true;
 			}
 			break;
 
 	}
 	return false;
+}
+
+
+Ficha.prototype.positionEnTablero = function(x, y) {
+
+	if (x < 0 || y < 0 || x > 7 || y > 7) {
+		return false;
+	}
+	return true;
 }

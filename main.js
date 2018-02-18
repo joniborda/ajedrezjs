@@ -65,7 +65,7 @@ for (var j = 0; j < 8; j++) {
 				containment: tablero.tablero,
 				start: function(event, ui) {
 					tablero.tablero.find('.casilla_habilitada').remove();
-					if (tablero.fichas[parseInt($(this).attr('x'))][parseInt($(this).attr('y'))].color == tablero.jugadores[tablero.turno].color) {
+					if (tablero.fichas[parseInt($(this).attr('x'))][parseInt($(this).attr('y'))] && tablero.fichas[parseInt($(this).attr('x'))][parseInt($(this).attr('y'))].color == tablero.jugadores[tablero.turno].color) {
 						for (var o = 0; o < 8; o++) {
 							for (var p = 0; p < 8; p++) {
 								if (tablero.fichas[parseInt($(this).attr('x'))][parseInt($(this).attr('y'))].habilitadaMover(o, p)) {
