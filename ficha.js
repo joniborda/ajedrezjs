@@ -54,12 +54,12 @@ Ficha.prototype.mover = function(x, y) {
 			}
 		}
 
-		// TODO: falta ver que pieza es para ver que jaque puede generar.
-
-		// TODO: se deberia revisar todas las piezas en cada movimiento porque 
-		// por ahí una mueve una pieza que lo que hace es despejar 
-		// el camino hacia el jaque
-
+		// TODO: para el jaque mate puede ver quien genera el jaque y si se puede comer la pieza
+		// si no se puede comer es porque puede ser jaque mate
+		// tambien tengo que ver si puede poner una pieza en el medio
+		// tambien tengo que ver si el rey puede mover
+		// tambien tengo que ver que este en jaque
+		console.log(this.quienCome());
 		return true;
 	}
 
@@ -491,4 +491,17 @@ Ficha.prototype.positionEnTablero = function(x, y) {
 		return false;
 	}
 	return true;
+}
+
+Ficha.prototype.quienCome = function() {
+	var piezas = [];
+	for (var i = 0; i < 8; i++) {
+		for (var j = 0; j < 8; j++) {
+			if (this.fichas[i][j] && this.fichas[i][j].color !== this.color && this.fichas[i][j].puedeMover(this.x, this.y)) {
+				piezas.push(this.fichas[i][j]);
+			}
+		}
+	}
+
+	return piezas;
 }
