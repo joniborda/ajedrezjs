@@ -59,7 +59,7 @@ Ficha.prototype.mover = function(x, y) {
 		// tambien tengo que ver si puede poner una pieza en el medio
 		// tambien tengo que ver si el rey puede mover
 		// tambien tengo que ver que este en jaque
-		console.log(this.quienCome());
+		//console.log(this.quienCome());
 		return true;
 	}
 
@@ -199,28 +199,10 @@ Ficha.prototype.habilitadaMover = function(x, y) {
 	}
 
 	if (this.puedeMover(x, y)) {
-		for (var i = 0; i < 8; i++) {
-			for (var j = 0; j < 8; j++) {
-				if (
-					this.fichas[i][j] && this.fichas[i][j].generaJaque() 
-					&& this.fichas[i][j].color !== this.color
-				) {
 
-					if (this.nombre !== CABALLO) {
-						
-						// TODO: si no es un caballo y se puede poner en el medio puede mover.
-						// TODO: puede que se ponga en el medio de una pieza 
-						// pero tengo que ver que se pueda poner el medio de las otras piezas que generan jaque
-					}
-
-					// si no la puede comer no puede mover, salvo que se ponga en el medio
-					if (x != i || y != j) {
-						console.log('posiciones (' + x + ', ' + y + ')');
-						return false;
-					}
-					console.log('habi (' + x + ', ' + y + ')');
-				}
-			}
+		var me_comen = this.getMiRey().quienCome();
+		for (var come in me_comen) {
+			console.log(me_comen[come]);
 		}
 
 		return true;
@@ -533,6 +515,10 @@ Ficha.prototype.quienCome = function() {
 	var piezas = [];
 	for (var i = 0; i < 8; i++) {
 		for (var j = 0; j < 8; j++) {
+			if (this.x == i && this.y == j) {
+				continue;
+			}
+
 			if (this.fichas[i][j] && this.fichas[i][j].color !== this.color && this.fichas[i][j].puedeMover(this.x, this.y)) {
 				piezas.push(this.fichas[i][j]);
 			}
@@ -540,4 +526,17 @@ Ficha.prototype.quienCome = function() {
 	}
 
 	return piezas;
+}
+
+/**
+ * Devuelve el rey del mismo color
+ */
+Ficha.prototype.getMiRey = function() {
+	for (var i = 0; i < 8; i++) {
+		for (var j = 0; j < 8; j++) {
+			if (this.fichas[i][j] && this.fichas[i][j].color === this.color && this.fichas[i][j].nombre == REY) {
+				return this.fichas[i][j];
+			}
+		}
+	}
 }
