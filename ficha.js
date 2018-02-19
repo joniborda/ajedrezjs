@@ -49,7 +49,7 @@ Ficha.prototype.mover = function(x, y) {
 		for (var i = 0; i < 8; i++) {
 			for (var j = 0; j < 8; j++) {
 				if (this.fichas[i][j] && this.fichas[i][j].generaJaque()) {
-					alert('jaque');
+					alert('jaque ' + COLORES[this.fichas[i][j].color]);
 				}
 			}
 		}
@@ -199,6 +199,30 @@ Ficha.prototype.habilitadaMover = function(x, y) {
 	}
 
 	if (this.puedeMover(x, y)) {
+		for (var i = 0; i < 8; i++) {
+			for (var j = 0; j < 8; j++) {
+				if (
+					this.fichas[i][j] && this.fichas[i][j].generaJaque() 
+					&& this.fichas[i][j].color !== this.color
+				) {
+
+					if (this.nombre !== CABALLO) {
+						
+						// TODO: si no es un caballo y se puede poner en el medio puede mover.
+						// TODO: puede que se ponga en el medio de una pieza 
+						// pero tengo que ver que se pueda poner el medio de las otras piezas que generan jaque
+					}
+
+					// si no la puede comer no puede mover, salvo que se ponga en el medio
+					if (x != i || y != j) {
+						console.log('posiciones (' + x + ', ' + y + ')');
+						return false;
+					}
+					console.log('habi (' + x + ', ' + y + ')');
+				}
+			}
+		}
+
 		return true;
 	}
 }
@@ -445,6 +469,10 @@ Ficha.prototype.reyEnEle = function() {
 	}
 }
 
+/**
+ * Verdadero si al mover esta pieza un jaque a su favor es generado
+ *
+ */
 Ficha.prototype.generaJaque = function() {
 
 	switch(this.nombre) {
@@ -485,6 +513,10 @@ Ficha.prototype.generaJaque = function() {
 }
 
 
+/**
+ * Valida que la position esta dentro del tablero
+ *
+ */
 Ficha.prototype.positionEnTablero = function(x, y) {
 
 	if (x < 0 || y < 0 || x > 7 || y > 7) {
@@ -493,6 +525,10 @@ Ficha.prototype.positionEnTablero = function(x, y) {
 	return true;
 }
 
+/**
+ * Devuelve las piezas que pueden comer a this
+ *
+ */
 Ficha.prototype.quienCome = function() {
 	var piezas = [];
 	for (var i = 0; i < 8; i++) {

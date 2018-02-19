@@ -12,6 +12,7 @@ const IZQUIERDA = 1;
 const DERECHA = 2;
 const BLANCA = 0;
 const NEGRA = 1;
+const COLORES = ['BLANCA', 'NEGRA'];
 const ARRIBA = 1;
 const ABAJO = 0;
 const PEON = 'Peon';
