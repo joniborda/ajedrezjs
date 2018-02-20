@@ -54,12 +54,23 @@ Ficha.prototype.mover = function(x, y) {
 			}
 		}
 
-		// TODO: para el jaque mate puede ver quien genera el jaque y si se puede comer la pieza
-		// si no se puede comer es porque puede ser jaque mate
-		// tambien tengo que ver si puede poner una pieza en el medio
-		// tambien tengo que ver si el rey puede mover
-		// tambien tengo que ver que este en jaque
-		//console.log(this.quienCome());
+		var pueden_mover = false;
+		for (var i = 0; i < 8; i++) {
+			for (var j = 0; j < 8; j++) {
+				for (var i2 = 0; i2 < 8; i2++) {
+					for (var j2 = 0; j2 < 8; j2++) {
+						if (this.fichas[i][j] && this.fichas[i][j].color != this.color && this.fichas[i][j].habilitadaMover(i2, j2)) {
+							pueden_mover = true;
+						}
+					}
+				}
+			}
+		}
+
+		if (pueden_mover == false) {
+			alert('jaque mate');
+		}
+
 		return true;
 	}
 
@@ -200,10 +211,26 @@ Ficha.prototype.habilitadaMover = function(x, y) {
 
 	if (this.puedeMover(x, y)) {
 
-		var me_comen = this.getMiRey().quienCome();
-		for (var come in me_comen) {
-			console.log(me_comen[come]);
+		var tmp_x = this.x;
+		var tmp_y = this.y;
+		var tmp_ficha = this.fichas[x][y];
+		
+		this.fichas[this.x][this.y] = null;
+		this.fichas[x][y] = this;
+		this.fichas[x][y].setPosition(x, y);
+		for (var i = 0; i < 8; i++) {
+			for (var j = 0; j < 8; j++) {
+				if (this.fichas[i][j] && this.fichas[i][j].generaJaque() && this.fichas[i][j].color !== this.color) {
+					this.fichas[x][y] = tmp_ficha;
+					this.fichas[tmp_x][tmp_y] = this;
+					this.fichas[tmp_x][tmp_y].setPosition(tmp_x, tmp_y);
+					return false;
+				}
+			}
 		}
+		this.fichas[x][y] = tmp_ficha;
+		this.fichas[tmp_x][tmp_y] = this;
+		this.fichas[tmp_x][tmp_y].setPosition(tmp_x, tmp_y);
 
 		return true;
 	}
@@ -484,7 +511,6 @@ Ficha.prototype.generaJaque = function() {
 			}
 			break;
 		case REY:
-			// TODO:diagonal pero de a uno
 			if (this.reyEnVertical(true) || this.reyEnHorizontal(true) || this.reyEnDiagonal(true)) {
 				return true;
 			}
