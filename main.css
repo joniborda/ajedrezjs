@@ -1,3 +1,4 @@
+	
 body {
 	background: #e8e8e8;
 }
@@ -12,7 +13,7 @@ body {
 .casilla {
 	width: 50px;
 	height: 50px;
-	background: green;
+	background: rgb(111, 38, 3);
 	background-image: url('./img/madera_negra.jpg');
 	background-size: contain;
 	display: inline-block;
@@ -21,7 +22,7 @@ body {
 	margin: auto;
 }
 .casilla.white {
-	background: grey;
+	background: rgb(181, 155, 144);
 	background-image: url('./img/madera_blanca.jpg');
 	background-size: contain;
 }
@@ -36,6 +37,7 @@ body {
 	top: -4px;
 	left: 2px;
 	text-align: center;
+	padding-top: 3px;
 }
 .pieza.white {
 	color: white;
@@ -68,12 +70,23 @@ body {
 	float: left;
 	font-size: 3em;
 	height: 400px;
-    margin-top: 165px;
+    margin-top: 215px;
 }
 .reloj_blanca, .reloj_negra {
 	background: #FFF;
 	border: 2px solid;
 	border-radius: 5px;
-	margin-bottom: 20px;
+	margin-bottom: 30px;
 	padding: 5px;
+}
+
+@media (min-width: 992px) {
+	#reloj {
+	    margin-left: 135px;
+	}
+}
+@media (min-width: 1200px) {
+	#reloj {
+    	margin-left: 230px;
+    }
 }
