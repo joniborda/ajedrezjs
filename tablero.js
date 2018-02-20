@@ -1,42 +1,9 @@
-var dibujo_tablero = 
-"00 01 02 03 04 05 06 07" +
-"10 11 12 13 14 15 16 17" +
-"20 21 22 23 24 25 26 27" +
-"30 31 32 33 34 35 36 37" +
-"40 41 42 43 44 45 46 47" +
-"50 51 52 53 54 55 56 57" +
-"60 61 62 63 64 65 66 67" +
-"70 71 72 73 74 75 76 77"
-;
-const IZQUIERDA = 1;
-const DERECHA = 2;
-const BLANCA = 0;
-const NEGRA = 1;
-const COLORES = ['BLANCA', 'NEGRA'];
-const ARRIBA = 1;
-const ABAJO = 0;
-const PEON = 'Peon';
-const TORRE = 'Torre';
-const CABALLO = 'Caballo';
-const ALFIL = 'Alfil';
-const REINA = 'Reina';
-const REY = 'Rey';
-
 function Tablero(tablero) {
 	this.tablero = tablero;
 	this.fichas = [];
 	this.casillas = [];
-	this.reloj_blanca = new Date();
-	this.reloj_negra = new Date();
-	this.reloj_intervalo = null;
-
-	this.reloj_blanca.setHours(0);
-	this.reloj_blanca.setMinutes(15);
-	this.reloj_blanca.setSeconds(0);
-
-	this.reloj_negra.setHours(0);
-	this.reloj_negra.setMinutes(15);
-	this.reloj_negra.setSeconds(0);
+	// reloj deberia se una clase
+	this.reloj = new Reloj(15, 0);
 
 	var casilla = null;
 
@@ -120,32 +87,14 @@ Tablero.prototype.mover = function(x1, y1, x2, y2) {
 
 Tablero.prototype.setTurno = function(turno) {
 	this.turno = turno;
-	clearInterval(this.reloj_intervalo);
 	if (turno == BLANCA) {
 		$('.turno_pieza').css('color', 'white');
 
-		this.reloj_intervalo = setInterval(function() {
-			tablero.reloj_blanca.setMilliseconds(-1);
-			var segundos = tablero.reloj_blanca.getSeconds();
-
-			if (segundos < 10) {
-				segundos = '0' + segundos;
-			}
-			$('.reloj_blanca').html(tablero.reloj_blanca.getMinutes() + ':' + segundos);
-		}, 1000);
 	} else {
 		$('.turno_pieza').css('color', 'black');
-
-		this.reloj_intervalo = setInterval(function() {
-			tablero.reloj_negra.setMilliseconds(-1);
-			var segundos = tablero.reloj_negra.getSeconds();
-
-			if (segundos < 10) {
-				segundos = '0' + segundos;
-			}
-			$('.reloj_negra').html(tablero.reloj_negra.getMinutes() + ':' + segundos);
-		}, 1000);
 	}
+
+	this.reloj.setTurno(turno);
 	for (var i = 0; i < 8; i++) {
 		for (var j = 0; j < 8; j++) {
 			if (this.fichas[i][j]) {
