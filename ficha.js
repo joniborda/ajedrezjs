@@ -97,7 +97,15 @@ Ficha.prototype.mover = function(x, y) {
  *
  */
 Ficha.prototype.remover = function() {
-	this.ficha.remove();
+	//this.ficha.remove();
+	this.ficha.css('left', 'auto');
+	this.ficha.css('top', 'auto');
+	this.ficha.css('position', 'relative');
+	if (this.color == BLANCA) {
+		$('#blancas_comidas').append(this.ficha);
+	} else {
+		$('#negras_comidas').append(this.ficha);
+	}
 	// ver si las muestro al costado
 }
 

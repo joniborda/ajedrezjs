@@ -3,6 +3,9 @@
 	#tablero {
 		width: 320px;
 		height: 320px;
+	    margin: auto;
+	    text-align: center;
+	    position: relative;
 	}
 	.casilla {
 		width: 40px;
@@ -45,9 +48,22 @@
 	    margin: auto;
 	    margin-top: 7px;
 	}
+
+	#blancas_comidas, #negras_comidas {
+		height: 100px;
+		width: 320px;
+		margin: auto;
+		background: #6d4a21;
+	}
 </style>
-<div id="tablero">
-</div>
+	<div class="contenedor">
+		<div id="blancas_comidas">
+		</div>
+		<div id="tablero">
+		</div>
+		<div id="negras_comidas">
+		</div>
+	</div>
 
 <div class="casilla ocultar">
 </div>
