@@ -8,6 +8,11 @@ function Ficha(tablero, fichas, x, y) {
 
 	this.tablero.append(this.ficha);
 }
+
+/*
+ * Setea la posicion (x,y)
+ *
+ */
 Ficha.prototype.setPosition = function(x, y) {
 	this.ficha.css('position', 'absolute');
 	this.ficha.css('left', x * 40);
@@ -18,6 +23,10 @@ Ficha.prototype.setPosition = function(x, y) {
 	this.y = y;
 }
 
+/*
+ * Setea el color de la ficha y la posicion para donde mueve
+ *
+ */
 Ficha.prototype.setColor = function(color) {
 	this.color = color;
 	this.position = ARRIBA;
@@ -28,6 +37,11 @@ Ficha.prototype.setColor = function(color) {
 		this.ficha.css('color', '#000');
 	}
 }
+
+/*
+ * Mueve la ficha si es que se puede mover
+ * Tambien valida si hay jaque o jaque mate
+ */
 Ficha.prototype.mover = function(x, y) {
 
 	if (this.habilitadaMover(x, y)) {
@@ -78,11 +92,19 @@ Ficha.prototype.mover = function(x, y) {
 	return false;
 }
 
+/*
+ * Elimina la ficha
+ *
+ */
 Ficha.prototype.remover = function() {
 	this.ficha.remove();
 	// ver si las muestro al costado
 }
 
+/*
+ * Devuelve true si no hay ninguna ficha en vertical hasta (x,y)
+ *
+ */
 Ficha.prototype.nadieVertical = function(x, y) {
 	// ver que no haya piezas en el medio
 	if (this.y - y !== 0) {
@@ -111,6 +133,10 @@ Ficha.prototype.nadieVertical = function(x, y) {
 	return true;
 }
 
+/*
+ * Devuelve true si no hay ninguna ficha en horizontal hasta (x,y)
+ *
+ */
 Ficha.prototype.nadieHorizontal = function(x, y) {
 	// ver que no haya piezas en el medio
 	if (this.x - x !== 0) {
@@ -139,6 +165,10 @@ Ficha.prototype.nadieHorizontal = function(x, y) {
 	return true;
 }
 
+/*
+ * Devuelve true si no hay ninguna ficha en diagonal hasta (x,y)
+ *
+ */
 Ficha.prototype.nadieDiagonal = function(x, y) {
 	// ver que no haya piezas en el medio
 	if (this.x - x === 0  || this.y - y === 0) {
@@ -193,6 +223,10 @@ Ficha.prototype.nadieDiagonal = function(x, y) {
 	return true;
 }
 
+/*
+ * Devuelve true si la ficha puede mover
+ *
+ */
 Ficha.prototype.habilitadaMover = function(x, y) {
 
 	if (x < 0 || y < 0 || x > 7 || y > 7) {
@@ -236,6 +270,10 @@ Ficha.prototype.habilitadaMover = function(x, y) {
 	}
 }
 
+/*
+ * Devuelve true si la ficha en this apunta en vertical al rey opuesto
+ *
+ */
 Ficha.prototype.reyEnVertical = function(unMovimiento = false) {
 
 	for(var i = this.y + 1; i < 8; i++) {
@@ -265,6 +303,10 @@ Ficha.prototype.reyEnVertical = function(unMovimiento = false) {
 	return false;
 }
 
+/*
+ * Devuelve true si la ficha en this apunta en diagonal al rey opuesto
+ *
+ */
 Ficha.prototype.reyEnHorizontal = function(unMovimiento = false) {
 
 	for(var i = this.x + 1; i < 8; i++) {
