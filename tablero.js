@@ -26,6 +26,17 @@ function Tablero(tablero) {
 	this.tablero = tablero;
 	this.fichas = [];
 	this.casillas = [];
+	this.reloj_blanca = new Date();
+	this.reloj_negra = new Date();
+	this.reloj_intervalo = null;
+
+	this.reloj_blanca.setHours(0);
+	this.reloj_blanca.setMinutes(15);
+	this.reloj_blanca.setSeconds(0);
+
+	this.reloj_negra.setHours(0);
+	this.reloj_negra.setMinutes(15);
+	this.reloj_negra.setSeconds(0);
 
 	var casilla = null;
 
@@ -109,6 +120,32 @@ Tablero.prototype.mover = function(x1, y1, x2, y2) {
 
 Tablero.prototype.setTurno = function(turno) {
 	this.turno = turno;
+	clearInterval(this.reloj_intervalo);
+	if (turno == BLANCA) {
+		$('.turno_pieza').css('color', 'white');
+
+		this.reloj_intervalo = setInterval(function() {
+			tablero.reloj_blanca.setMilliseconds(-1);
+			var segundos = tablero.reloj_blanca.getSeconds();
+
+			if (segundos < 10) {
+				segundos = '0' + segundos;
+			}
+			$('.reloj_blanca').html(tablero.reloj_blanca.getMinutes() + ':' + segundos);
+		}, 1000);
+	} else {
+		$('.turno_pieza').css('color', 'black');
+
+		this.reloj_intervalo = setInterval(function() {
+			tablero.reloj_negra.setMilliseconds(-1);
+			var segundos = tablero.reloj_negra.getSeconds();
+
+			if (segundos < 10) {
+				segundos = '0' + segundos;
+			}
+			$('.reloj_negra').html(tablero.reloj_negra.getMinutes() + ':' + segundos);
+		}, 1000);
+	}
 	for (var i = 0; i < 8; i++) {
 		for (var j = 0; j < 8; j++) {
 			if (this.fichas[i][j]) {
