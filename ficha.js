@@ -15,8 +15,8 @@ function Ficha(tablero, fichas, x, y) {
  */
 Ficha.prototype.setPosition = function(x, y) {
 	this.ficha.css('position', 'absolute');
-	this.ficha.css('left', x * 40);
-	this.ficha.css('top', y * 40);
+	this.ficha.css('left', x * TAMANO_FICHA);
+	this.ficha.css('top', y * TAMANO_FICHA);
 	this.ficha.attr('x', x);
 	this.ficha.attr('y', y);
 	this.x = x;

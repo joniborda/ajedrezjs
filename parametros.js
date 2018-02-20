@@ -21,6 +21,7 @@ const CABALLO = 'Caballo';
 const ALFIL = 'Alfil';
 const REINA = 'Reina';
 const REY = 'Rey';
+const TAMANO_FICHA = 50;
 var reloj_blanca = null;
 var reloj_negra = null;
 var TURNO = BLANCA;
