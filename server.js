@@ -11,6 +11,7 @@ server.listen(parametros.port, function() {
 });
 
 app.use(express.static('public'));
+app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
 
 var WebSocketServer = require("ws").Server;
 var wss = new WebSocketServer({ port: 5001 });
@@ -38,11 +39,13 @@ wss.on('connection', function(socket) {
 var gulp = require('gulp');
 var concat = require('gulp-concat');
 
+// TODO: esto debería ser una task para que no se haga cada vez que haga un start
 gulp.src(
         [
             // se tienen que cargar en este orden
-            './src/jquery.js',
-            './src/all.js',
+            './node_modules/jquery/dist/jquery.min.js',
+            //'./node_modules/bootstrap/dist/css/*.min.css',
+            './node_modules/bootstrap/dist/js/*.min.js',
             './src/jquery-ui-1.12.1.custom/jquery-ui.js',
             './src/bundle.js',
             './src/jugador.js',

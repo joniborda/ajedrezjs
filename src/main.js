@@ -1,4 +1,8 @@
 tablero = new Tablero($('#tablero'));
+
+$('#myModal').modal();
+console.log('asdf');
+
 tablero.iniciar();
 
 var caballo = tablero.fichas[1][0];
