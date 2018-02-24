@@ -3,7 +3,7 @@ var express = require('express'),
     server = require('http').Server(app),
     io = require('socket.io')(server, { ws: true}), 
     usernames = {},
-    parametros = require('./public/parametros.js');
+    parametros = require('./src/parametros.js');
 console.log(parametros.port);
 
 server.listen(parametros.port, function() {  
@@ -36,6 +36,28 @@ wss.on('connection', function(socket) {
 });
 
 var gulp = require('gulp');
+var concat = require('gulp-concat');
 
-gulp.src('./public/*.js')
-    .pipe(gulp.dest('./public/destino.js'));
+gulp.src(
+        [
+            // se tienen que cargar en este orden
+            './src/jquery.js',
+            './src/all.js',
+            './src/jquery-ui-1.12.1.custom/jquery-ui.js',
+            './src/bundle.js',
+            './src/jugador.js',
+            './src/ficha.js',
+            './src/peon.js',
+            './src/torre.js',
+            './src/caballo.js',
+            './src/alfil.js',
+            './src/reina.js',
+            './src/rey.js',
+            './src/reloj.js',
+            './src/tablero.js',
+            './src/main.js',
+            './src/main-socket.js',
+        ]
+    )
+    .pipe(concat('all.js'))
+    .pipe(gulp.dest('./public/'));
