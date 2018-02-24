@@ -34,3 +34,8 @@ wss.on('connection', function(socket) {
 
     });
 });
+
+var gulp = require('gulp');
+
+gulp.src('./public/*.js')
+    .pipe(gulp.dest('./public/destino.js'));
