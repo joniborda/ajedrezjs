@@ -67,5 +67,5 @@ for (var j = 0; j < 8; j++) {
 		}
 	}
 }
-
-tablero.setTurno(BLANCA);
+console.log(PARAMETROS);
+tablero.setTurno(PARAMETROS.BLANCA);

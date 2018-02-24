@@ -9,24 +9,24 @@ var dibujo_tablero =
 "60 61 62 63 64 65 66 67" +
 "70 71 72 73 74 75 76 77"
 ;
-const IZQUIERDA = 1;
-const DERECHA = 2;
-const BLANCA = 0;
-const NEGRA = 1;
-const COLORES = ['BLANCA', 'NEGRA'];
-const ARRIBA = 1;
-const ABAJO = 0;
-const PEON = 'Peon';
-const TORRE = 'Torre';
-const CABALLO = 'Caballo';
-const ALFIL = 'Alfil';
-const REINA = 'Reina';
-const REY = 'Rey';
-const TAMANO_FICHA = 50;
-var reloj_blanca = null;
-var reloj_negra = null;
-var TURNO = BLANCA;
 
 module.exports = {
-	port: 5000	
+	port: 5000,
+	IZQUIERDA: 1,
+	DERECHA: 2,
+	BLANCA: 0,
+	NEGRA: 1,
+	COLORES: ['BLANCA', 'NEGRA'],
+	ARRIBA: 1,
+	ABAJO: 0,
+	PEON: 'Peon',
+	TORRE: 'Torre',
+	CABALLO: 'Caballo',
+	ALFIL: 'Alfil',
+	REINA: 'Reina',
+	REY: 'Rey',
+	TAMANO_FICHA: 50,
+	reloj_blanca: null,
+	reloj_negra: null,
+	TURNO: 0 // blanca
 }

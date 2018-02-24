@@ -2,7 +2,7 @@ function Peon(tablero, fichas, x, y, color) {
 	this.alpaso = false; // campo para saber si se puede comer al paso
 	this.ficha = $('<div class="pieza glyphicon glyphicon-pawn"></div>');
 	Ficha.call(this, tablero, fichas, x, y);
-	this.nombre = PEON;
+	this.nombre = PARAMETROS.PEON;
 	this.setPosition(x, y);
 	this.setColor(color);
 };
@@ -25,12 +25,12 @@ Peon.prototype.puedeMover = function(x, y) {
 	}
 
 	// una position en vertical
-	if (this.position == ABAJO && this.y - y == -1) {
+	if (this.position == PARAMETROS.ABAJO && this.y - y == -1) {
 		// no puede mover para atras
 		return false;
 	}
 
-	if (this.position == ARRIBA && this.y - y == 1) {
+	if (this.position == PARAMETROS.ARRIBA && this.y - y == 1) {
 		// no puede mover para atras
 		return false;
 	}

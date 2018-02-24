@@ -9,6 +9,7 @@
   "author": "Joni",
   "license": "ISC",
   "dependencies": {
+    "browserify": "^16.1.0",
     "component-bind": "^1.0.0",
     "express": "^4.14.0",
     "include-js": "0.0.0",

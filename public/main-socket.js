@@ -7,4 +7,4 @@ socket.on('connect', function(){
 });
 socket.emit('add_user', username);
 
-var para = require("./parametros.js");
+var para = require("parametros");

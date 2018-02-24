@@ -1,7 +1,7 @@
 function Rey(tablero, fichas, x, y, color) {
 	this.ficha = $('<div class="pieza glyphicon glyphicon-king"></div>');
 	Ficha.call(this, tablero, fichas, x, y);
-	this.nombre = 'Rey';
+	this.nombre = PARAMETROS.REY;
 	this.setPosition(x, y);
 	this.setColor(color);
 };
@@ -17,7 +17,7 @@ Rey.prototype.puedeMover = function(x, y) {
 				// enroque izquierdo
 				if (this.fichas[0][this.y] && this.fichas[0][this.y].movio === false && this.nadieHorizontal(x, y)) {
 					if (this.fichas[0][this.y].nadieHorizontal(x, y)) {
-						this.enroque = IZQUIERDA;
+						this.enroque = PARAMETROS.IZQUIERDA;
 						return true;
 					}
 					// no puede hacer enroque a la izquierda
@@ -26,7 +26,7 @@ Rey.prototype.puedeMover = function(x, y) {
 				if (this.fichas[7][this.y] && this.fichas[7][this.y].movio === false && this.nadieHorizontal(x, y)) {
 
 					if (this.fichas[7][this.y].nadieHorizontal(x, y)) {
-						this.enroque = DERECHA;
+						this.enroque = PARAMETROS.DERECHA;
 						return true;
 					}
 					// no puede hacer enroque a la izquierda
@@ -73,13 +73,13 @@ Rey.prototype.enrocar = function(x, y) {
 	this.fichas[x][y] = this;
 
 	// muevo la torre
-	if (this.enroque == IZQUIERDA) {
+	if (this.enroque == PARAMETROS.IZQUIERDA) {
 		this.fichas[0][y].setPosition(x+1, y);
 		this.fichas[0][y] = this.fichas[x+1][y];
 		this.fichas[0][y] = null;
 	}
 
-	if (this.enroque == DERECHA) {
+	if (this.enroque == PARAMETROS.DERECHA) {
 		this.fichas[7][y].setPosition(x-1, y);
 		this.fichas[7][y] = this.fichas[x-1][y];
 		this.fichas[7][y] = null;

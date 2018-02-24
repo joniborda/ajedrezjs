@@ -1,3 +1,5 @@
+var PARAMETROS = require('parametros');
+
 function Tablero(tablero) {
 	this.tablero = tablero;
 	this.fichas = [];
@@ -39,42 +41,42 @@ function Tablero(tablero) {
 Tablero.prototype.iniciar = function() {
 	var pieza = null;
 	for (var i = 0; i < 8; i++) {
-		pieza = new Peon(this.tablero, this.fichas, i, 1, BLANCA);
+		pieza = new Peon(this.tablero, this.fichas, i, 1, PARAMETROS.BLANCA);
 	}
 
-	pieza = new Torre(this.tablero, this.fichas, 0, 0, BLANCA);
-	pieza = new Caballo(this.tablero, this.fichas, 1, 0, BLANCA);
-	pieza = new Alfil(this.tablero, this.fichas, 2, 0, BLANCA);
-	pieza = new Rey(this.tablero, this.fichas, 3, 0, BLANCA);
-	pieza = new Reina(this.tablero, this.fichas, 4, 0, BLANCA);
-	pieza = new Alfil(this.tablero, this.fichas, 5, 0, BLANCA);
-	pieza = new Caballo(this.tablero, this.fichas, 6, 0, BLANCA);
-	pieza = new Torre(this.tablero, this.fichas, 7, 0, BLANCA);
+	pieza = new Torre(this.tablero, this.fichas, 0, 0, PARAMETROS.BLANCA);
+	pieza = new Caballo(this.tablero, this.fichas, 1, 0, PARAMETROS.BLANCA);
+	pieza = new Alfil(this.tablero, this.fichas, 2, 0, PARAMETROS.BLANCA);
+	pieza = new Rey(this.tablero, this.fichas, 3, 0, PARAMETROS.BLANCA);
+	pieza = new Reina(this.tablero, this.fichas, 4, 0, PARAMETROS.BLANCA);
+	pieza = new Alfil(this.tablero, this.fichas, 5, 0, PARAMETROS.BLANCA);
+	pieza = new Caballo(this.tablero, this.fichas, 6, 0, PARAMETROS.BLANCA);
+	pieza = new Torre(this.tablero, this.fichas, 7, 0, PARAMETROS.BLANCA);
 
 	for (var i = 0; i < 8; i++) {
-		pieza = new Peon(this.tablero, this.fichas, i, 6, NEGRA);
+		pieza = new Peon(this.tablero, this.fichas, i, 6, PARAMETROS.NEGRA);
 	}
 
-	pieza = new Torre(this.tablero, this.fichas, 0, 7, NEGRA);
-	pieza = new Caballo(this.tablero, this.fichas, 1, 7, NEGRA);
-	pieza = new Alfil(this.tablero, this.fichas, 2, 7, NEGRA);
-	pieza = new Rey(this.tablero, this.fichas, 3, 7, NEGRA);
-	pieza = new Reina(this.tablero, this.fichas, 4, 7, NEGRA);
-	pieza = new Alfil(this.tablero, this.fichas, 5, 7, NEGRA);
-	pieza = new Caballo(this.tablero, this.fichas, 6, 7, NEGRA);
-	pieza = new Torre(this.tablero, this.fichas, 7, 7, NEGRA);
+	pieza = new Torre(this.tablero, this.fichas, 0, 7, PARAMETROS.NEGRA);
+	pieza = new Caballo(this.tablero, this.fichas, 1, 7, PARAMETROS.NEGRA);
+	pieza = new Alfil(this.tablero, this.fichas, 2, 7, PARAMETROS.NEGRA);
+	pieza = new Rey(this.tablero, this.fichas, 3, 7, PARAMETROS.NEGRA);
+	pieza = new Reina(this.tablero, this.fichas, 4, 7, PARAMETROS.NEGRA);
+	pieza = new Alfil(this.tablero, this.fichas, 5, 7, PARAMETROS.NEGRA);
+	pieza = new Caballo(this.tablero, this.fichas, 6, 7, PARAMETROS.NEGRA);
+	pieza = new Torre(this.tablero, this.fichas, 7, 7, PARAMETROS.NEGRA);
 
-	this.jugadores[0] = new Jugador(0, BLANCA);
-	this.jugadores[1] = new Jugador(1, NEGRA);
+	this.jugadores[0] = new Jugador(0, PARAMETROS.BLANCA);
+	this.jugadores[1] = new Jugador(1, PARAMETROS.NEGRA);
 }
 
 Tablero.prototype.mover = function(x1, y1, x2, y2) {
 	if (this.fichas[x1][y1]) {
 		if (this.fichas[x1][y1].mover(x2,y2)) {
-			if (this.turno == BLANCA) {
-				this.setTurno(NEGRA);
+			if (this.turno == PARAMETROS.BLANCA) {
+				this.setTurno(PARAMETROS.NEGRA);
 			} else {
-				this.setTurno(BLANCA);
+				this.setTurno(PARAMETROS.BLANCA);
 			}
 
 			return true;
@@ -87,7 +89,7 @@ Tablero.prototype.mover = function(x1, y1, x2, y2) {
 
 Tablero.prototype.setTurno = function(turno) {
 	this.turno = turno;
-	if (turno == BLANCA) {
+	if (turno == PARAMETROS.BLANCA) {
 		$('.turno_pieza').css('color', 'white');
 
 	} else {

@@ -22,7 +22,7 @@ Reloj.prototype.setTurno = function(turno) {
 	TURNO = turno;
 
 	this.reloj_intervalo = setInterval(function() {
-		if (TURNO == BLANCA) {
+		if (TURNO == PARAMETROS.BLANCA) {
 			reloj = reloj_blanca;
 		} else {
 			reloj = reloj_negra;
@@ -34,7 +34,7 @@ Reloj.prototype.setTurno = function(turno) {
 			segundos = '0' + segundos;
 		}
 
-		if (TURNO == BLANCA) {
+		if (TURNO == PARAMETROS.BLANCA) {
 			$('.reloj_blanca').html(reloj.getMinutes() + ':' + segundos);
 		} else {
 			$('.reloj_negra').html(reloj.getMinutes() + ':' + segundos);

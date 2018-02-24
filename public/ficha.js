@@ -15,8 +15,8 @@ function Ficha(tablero, fichas, x, y) {
  */
 Ficha.prototype.setPosition = function(x, y) {
 	this.ficha.css('position', 'absolute');
-	this.ficha.css('left', x * TAMANO_FICHA);
-	this.ficha.css('top', y * TAMANO_FICHA);
+	this.ficha.css('left', x * PARAMETROS.TAMANO_FICHA);
+	this.ficha.css('top', y * PARAMETROS.TAMANO_FICHA);
 	this.ficha.attr('x', x);
 	this.ficha.attr('y', y);
 	this.x = x;
@@ -29,11 +29,11 @@ Ficha.prototype.setPosition = function(x, y) {
  */
 Ficha.prototype.setColor = function(color) {
 	this.color = color;
-	this.position = ARRIBA;
-	if (color == BLANCA) {
+	this.position = PARAMETROS.ARRIBA;
+	if (color == PARAMETROS.BLANCA) {
 		this.ficha.css('color', '#FFF');
 	} else {
-		this.position = ABAJO;
+		this.position = PARAMETROS.ABAJO;
 		this.ficha.css('color', '#000');
 	}
 }
@@ -63,7 +63,7 @@ Ficha.prototype.mover = function(x, y) {
 		for (var i = 0; i < 8; i++) {
 			for (var j = 0; j < 8; j++) {
 				if (this.fichas[i][j] && this.fichas[i][j].generaJaque()) {
-					alert('jaque ' + COLORES[this.fichas[i][j].color]);
+					alert('jaque ' + PARAMETROS.COLORES[this.fichas[i][j].color]);
 				}
 			}
 		}
@@ -101,7 +101,7 @@ Ficha.prototype.remover = function() {
 	this.ficha.css('left', 'auto');
 	this.ficha.css('top', 'auto');
 	this.ficha.css('position', 'relative');
-	if (this.color == BLANCA) {
+	if (this.color == PARAMETROS.BLANCA) {
 		$('#blancas_comidas').append(this.ficha);
 	} else {
 		$('#negras_comidas').append(this.ficha);
@@ -286,7 +286,7 @@ Ficha.prototype.reyEnVertical = function(unMovimiento = false) {
 
 	for(var i = this.y + 1; i < 8; i++) {
 		if (this.fichas[this.x][i]) {
-			if (this.fichas[this.x][i].color !== this.color && this.fichas[this.x][i].nombre == REY) {
+			if (this.fichas[this.x][i].color !== this.color && this.fichas[this.x][i].nombre == PARAMETROS.REY) {
 				return true;
 			}
 			break;
@@ -298,7 +298,7 @@ Ficha.prototype.reyEnVertical = function(unMovimiento = false) {
 
 	for(var i = this.y - 1; i >= 0 ; i--) {
 		if (this.fichas[this.x][i]) {
-			if (this.fichas[this.x][i].color !== this.color && this.fichas[this.x][i].nombre == REY) {
+			if (this.fichas[this.x][i].color !== this.color && this.fichas[this.x][i].nombre == PARAMETROS.REY) {
 				return true;
 			}
 			break;
@@ -319,7 +319,7 @@ Ficha.prototype.reyEnHorizontal = function(unMovimiento = false) {
 
 	for(var i = this.x + 1; i < 8; i++) {
 		if (this.fichas[i][this.y]) {
-			if (this.fichas[i][this.y].color !== this.color && this.fichas[i][this.y].nombre == REY) {
+			if (this.fichas[i][this.y].color !== this.color && this.fichas[i][this.y].nombre == PARAMETROS.REY) {
 				return true;
 			}
 			break;
@@ -331,7 +331,7 @@ Ficha.prototype.reyEnHorizontal = function(unMovimiento = false) {
 
 	for(var i = this.x - 1; i >= 0 ; i--) {
 		if (this.fichas[i][this.y]) {
-			if (this.fichas[i][this.y].color !== this.color && this.fichas[i][this.y].nombre == REY) {
+			if (this.fichas[i][this.y].color !== this.color && this.fichas[i][this.y].nombre == PARAMETROS.REY) {
 				return true;
 			}
 			break;
@@ -353,10 +353,10 @@ Ficha.prototype.reyEnDiagonal = function(unMovimiento = false, adelante = false)
 	var y = this.y - 1;
 	while(x >= 0 && y >= 0) {
 		if (this.fichas[x][y]) {
-			if (this.fichas[x][y].color !== this.color && this.fichas[x][y].nombre == REY) {
+			if (this.fichas[x][y].color !== this.color && this.fichas[x][y].nombre == PARAMETROS.REY) {
 				
 				if (adelante) {
-					if (this.position == ABAJO) {
+					if (this.position == PARAMETROS.ABAJO) {
 						return true;
 					}
 				} else {
@@ -379,9 +379,9 @@ Ficha.prototype.reyEnDiagonal = function(unMovimiento = false, adelante = false)
 	y = this.y + 1;
 	while(x >= 0 && y < 8) {
 		if (this.fichas[x][y]) {
-			if (this.fichas[x][y].color !== this.color && this.fichas[x][y].nombre == REY) {
+			if (this.fichas[x][y].color !== this.color && this.fichas[x][y].nombre == PARAMETROS.REY) {
 				if (adelante) {
-					if (this.position == ARRIBA) {
+					if (this.position == PARAMETROS.ARRIBA) {
 						return true;
 					}
 				} else {
@@ -403,9 +403,9 @@ Ficha.prototype.reyEnDiagonal = function(unMovimiento = false, adelante = false)
 	y = this.y + 1;
 	while(x < 8 && y < 8) {
 		if (this.fichas[x][y]) {
-			if (this.fichas[x][y].color !== this.color && this.fichas[x][y].nombre == REY) {
+			if (this.fichas[x][y].color !== this.color && this.fichas[x][y].nombre == PARAMETROS.REY) {
 				if (adelante) {
-					if (this.position == ARRIBA) {
+					if (this.position == PARAMETROS.ARRIBA) {
 						return true;
 					}
 				} else {
@@ -426,9 +426,9 @@ Ficha.prototype.reyEnDiagonal = function(unMovimiento = false, adelante = false)
 	y = this.y - 1;
 	while(x < 8 && y >= 0) {
 		if (this.fichas[x][y]) {
-			if (this.fichas[x][y].color !== this.color && this.fichas[x][y].nombre == REY) {
+			if (this.fichas[x][y].color !== this.color && this.fichas[x][y].nombre == PARAMETROS.REY) {
 				if (adelante) {
-					if (this.position == ABAJO) {
+					if (this.position == PARAMETROS.ABAJO) {
 						return true;
 					}
 				} else {
@@ -453,7 +453,7 @@ Ficha.prototype.reyEnEle = function() {
 	var y = this.y - 1;
 
 	if (x >= 0 && x < 8 && y >= 0 && y < 8 && this.fichas[x][y]) {
-		if (this.fichas[x][y].color !== this.color && this.fichas[x][y].nombre == REY) {
+		if (this.fichas[x][y].color !== this.color && this.fichas[x][y].nombre == PARAMETROS.REY) {
 			return true;
 		}
 	}
@@ -463,7 +463,7 @@ Ficha.prototype.reyEnEle = function() {
 	y = this.y + 1;
 
 	if (x >= 0 && x < 8 && y >= 0 && y < 8 && this.fichas[x][y]) {
-		if (this.fichas[x][y].color !== this.color && this.fichas[x][y].nombre == REY) {
+		if (this.fichas[x][y].color !== this.color && this.fichas[x][y].nombre == PARAMETROS.REY) {
 			return true;
 		}
 	}
@@ -473,7 +473,7 @@ Ficha.prototype.reyEnEle = function() {
 	y = this.y - 2;
 
 	if (x >= 0 && x < 8 && y >= 0 && y < 8 && this.fichas[x][y]) {
-		if (this.fichas[x][y].color !== this.color && this.fichas[x][y].nombre == REY) {
+		if (this.fichas[x][y].color !== this.color && this.fichas[x][y].nombre == PARAMETROS.REY) {
 			return true;
 		}
 	}
@@ -483,7 +483,7 @@ Ficha.prototype.reyEnEle = function() {
 	y = this.y - 2;
 
 	if (x >= 0 && x < 8 && y >= 0 && y < 8 && this.fichas[x][y]) {
-		if (this.fichas[x][y].color !== this.color && this.fichas[x][y].nombre == REY) {
+		if (this.fichas[x][y].color !== this.color && this.fichas[x][y].nombre == PARAMETROS.REY) {
 			return true;
 		}
 	}
@@ -493,7 +493,7 @@ Ficha.prototype.reyEnEle = function() {
 	y = this.y + 2;
 
 	if (x >= 0 && x < 8 && y >= 0 && y < 8 && this.fichas[x][y]) {
-		if (this.fichas[x][y].color !== this.color && this.fichas[x][y].nombre == REY) {
+		if (this.fichas[x][y].color !== this.color && this.fichas[x][y].nombre == PARAMETROS.REY) {
 			return true;
 		}
 	}
@@ -502,7 +502,7 @@ Ficha.prototype.reyEnEle = function() {
 	y = this.y + 2;
 
 	if (x >= 0 && x < 8 && y >= 0 && y < 8 && this.fichas[x][y]) {
-		if (this.fichas[x][y].color !== this.color && this.fichas[x][y].nombre == REY) {
+		if (this.fichas[x][y].color !== this.color && this.fichas[x][y].nombre == PARAMETROS.REY) {
 			return true;
 		}
 	}
@@ -512,7 +512,7 @@ Ficha.prototype.reyEnEle = function() {
 	y = this.y - 1;
 
 	if (x >= 0 && x < 8 && y >= 0 && y < 8 && this.fichas[x][y]) {
-		if (this.fichas[x][y].color !== this.color && this.fichas[x][y].nombre == REY) {
+		if (this.fichas[x][y].color !== this.color && this.fichas[x][y].nombre == PARAMETROS.REY) {
 			return true;
 		}
 	}
@@ -522,7 +522,7 @@ Ficha.prototype.reyEnEle = function() {
 	y = this.y + 1;
 
 	if (x >= 0 && x < 8 && y >= 0 && y < 8 && this.fichas[x][y]) {
-		if (this.fichas[x][y].color !== this.color && this.fichas[x][y].nombre == REY) {
+		if (this.fichas[x][y].color !== this.color && this.fichas[x][y].nombre == PARAMETROS.REY) {
 			return true;
 		}
 	}
@@ -535,32 +535,32 @@ Ficha.prototype.reyEnEle = function() {
 Ficha.prototype.generaJaque = function() {
 
 	switch(this.nombre) {
-		case PEON:
+		case PARAMETROS.PEON:
 			if (this.reyEnDiagonal(true, true)) {
 				return true;
 			}
 			break;
-		case CABALLO:
+		case PARAMETROS.CABALLO:
 			if (this.reyEnEle()) {
 				return true;
 			}
 			break;
-		case TORRE:
+		case PARAMETROS.TORRE:
 			if (this.reyEnVertical() || this.reyEnHorizontal()) {
 				return true;
 			}
 			break;
-		case REINA:
+		case PARAMETROS.REINA:
 			if (this.reyEnVertical() || this.reyEnHorizontal() || this.reyEnDiagonal()) {
 				return true;
 			}
 			break;
-		case ALFIL:
+		case PARAMETROS.ALFIL:
 			if (this.reyEnDiagonal()) {
 				return true;
 			}
 			break;
-		case REY:
+		case PARAMETROS.REY:
 			if (this.reyEnVertical(true) || this.reyEnHorizontal(true) || this.reyEnDiagonal(true)) {
 				return true;
 			}
@@ -610,7 +610,7 @@ Ficha.prototype.quienCome = function() {
 Ficha.prototype.getMiRey = function() {
 	for (var i = 0; i < 8; i++) {
 		for (var j = 0; j < 8; j++) {
-			if (this.fichas[i][j] && this.fichas[i][j].color === this.color && this.fichas[i][j].nombre == REY) {
+			if (this.fichas[i][j] && this.fichas[i][j].color === this.color && this.fichas[i][j].nombre == PARAMETROS.REY) {
 				return this.fichas[i][j];
 			}
 		}
