@@ -1,7 +1,6 @@
 tablero = new Tablero($('#tablero'));
 
 $('#myModal').modal();
-console.log('asdf');
 
 tablero.iniciar();
 
@@ -71,5 +70,16 @@ for (var j = 0; j < 8; j++) {
 		}
 	}
 }
-console.log(PARAMETROS);
+
 tablero.setTurno(PARAMETROS.BLANCA);
+
+// va a mostrar los usuarios conectados en una lista html
+function mostrarUsuario(usuarios) {
+
+	var usuarios_conectados_html = $('#usuarios_conectados');
+	usuarios_conectados_html.html('');
+	for (var i = usuarios.length - 1; i >= 0; i--) {
+		var li = '<li usuario_id="' + usuarios[i] + '">' + usuarios[i] + '</li>';
+		usuarios_conectados_html.append(li);
+	}
+}

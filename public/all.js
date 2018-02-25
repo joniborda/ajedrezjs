@@ -19788,7 +19788,6 @@ Tablero.prototype.setTurno = function(turno) {
 tablero = new Tablero($('#tablero'));
 
 $('#myModal').modal();
-console.log('asdf');
 
 tablero.iniciar();
 
@@ -19858,15 +19857,52 @@ for (var j = 0; j < 8; j++) {
 		}
 	}
 }
-console.log(PARAMETROS);
+
 tablero.setTurno(PARAMETROS.BLANCA);
-var socket = io.connect('http://localhost:5000');
 
-var username = 'joni';
+// va a mostrar los usuarios conectados en una lista html
+function mostrarUsuario(usuarios) {
 
-socket.on('connect', function(){
-    console.log('se logueo con esto ' + username);
-});
-socket.emit('add_user', username);
+	var usuarios_conectados_html = $('#usuarios_conectados');
+	usuarios_conectados_html.html('');
+	for (var i = usuarios.length - 1; i >= 0; i--) {
+		var option = '<option value="' + usuarios[i] + '">' + usuarios[i] + '</option>';
+		usuarios_conectados_html.append(option);
+	}
+}
+var socket = null;
 
+var data_socket = {
+	socket_id: null,
+	username: null
+};
+function conectar(username) {
+	socket = io.connect('http://localhost:5000');
+	cargar_escuchadores();
+	socket.emit('add_user', username);
+}
+
+function nueva_solicitud(username) {
+	socket.emit('nueva_solicitud', username);
+}
+
+
+function cargar_escuchadores() {
+	socket.on('connect', function() {
+
+	});
+
+	socket.on('usuarios_conectados', function(data) {
+		console.log(data);
+		mostrarUsuario(data);
+	});
+
+	socket.on('added_user', function(socket_id) {
+		data_socket.socket_id = socket_id;
+	});
+
+	socket.on('solicitud_partida', function(socket_id) {
+		console.log('pidio');
+	});
+}
 var para = require("parametros");

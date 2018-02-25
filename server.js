@@ -2,9 +2,9 @@ var express = require('express'),
     app = express(),
     server = require('http').Server(app),
     io = require('socket.io')(server, { ws: true}), 
-    usernames = {},
-    parametros = require('./src/parametros.js');
-console.log(parametros.port);
+    usuarios_conectados = [],
+    parametros = require('./src/parametros.js'),
+    clientes = [];
 
 server.listen(parametros.port, function() {  
     console.log('Servidor corriendo en http://localhost:' + parametros.port);
@@ -14,18 +14,23 @@ app.use(express.static('public'));
 app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
 app.use('/static/fontawesome/', express.static(__dirname + '/src/fontawesome/svg-with-js/js'));
 
-var WebSocketServer = require("ws").Server;
-var wss = new WebSocketServer({ port: 5001 });
-
-wss.on('connection', function(socket) {
+io.on('connection', function(socket) {
     console.log('alguien se conecto');
 
-    //wss.emit('update_rooms', rooms);
+    //io.emit('update_rooms', rooms);
+    clientes[socket.id] = socket;
+
+    socket.emit('usuarios_conectados', usuarios_conectados);
 
     socket.on('add_user', function(username) {
         socket.username = username;
-
+        console.log('usuario agregado ' + username);
+        usuarios_conectados.push(username);
         socket.emit('added_user', socket.id);
+    });
+
+	socket.on('nueva_solicitud', function(data) {
+    	clientes[socket.id].emit('solitud_partida');
     });
 
     socket.on('movimiento', function(data) {
@@ -45,7 +50,6 @@ gulp.src(
         [
             // se tienen que cargar en este orden
             './node_modules/jquery/dist/jquery.min.js',
-            //'./node_modules/bootstrap/dist/css/*.min.css',
             './node_modules/bootstrap/dist/js/*.min.js',
             './src/jquery-ui-1.12.1.custom/jquery-ui.js',
             './src/bundle.js',
