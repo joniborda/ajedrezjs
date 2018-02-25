@@ -1,5 +1,5 @@
 function Alfil(tablero, fichas, x, y, color) {
-	this.ficha = $('<div class="pieza glyphicon glyphicon-bishop"></div>');
+	this.ficha = $('<div class="pieza"><i class="fas fa-chess-bishop"></i></div>');
 	Ficha.call(this, tablero, fichas, x, y);
 	this.nombre = PARAMETROS.ALFIL;
 	this.setPosition(x, y);

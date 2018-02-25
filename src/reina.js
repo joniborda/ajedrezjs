@@ -1,5 +1,5 @@
 function Reina(tablero, fichas, x, y, color) {
-	this.ficha = $('<div class="pieza glyphicon glyphicon-queen"></div>');
+	this.ficha = $('<div class="pieza"><i class="fas fa-chess-queen"></i></div>');
 	Ficha.call(this, tablero, fichas, x, y);
 	this.nombre = PARAMETROS.REINA;
 	this.setPosition(x, y);

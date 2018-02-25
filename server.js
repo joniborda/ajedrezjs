@@ -12,6 +12,7 @@ server.listen(parametros.port, function() {
 
 app.use(express.static('public'));
 app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
+app.use('/static/fontawesome/', express.static(__dirname + '/src/fontawesome/svg-with-js/js'));
 
 var WebSocketServer = require("ws").Server;
 var wss = new WebSocketServer({ port: 5001 });

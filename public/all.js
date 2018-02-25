@@ -19382,7 +19382,7 @@ Ficha.prototype.getMiRey = function() {
 }
 function Peon(tablero, fichas, x, y, color) {
 	this.alpaso = false; // campo para saber si se puede comer al paso
-	this.ficha = $('<div class="pieza glyphicon glyphicon-pawn"></div>');
+	this.ficha = $('<div class="pieza"><i class="fas fa-chess-pawn"></i></div>');
 	Ficha.call(this, tablero, fichas, x, y);
 	this.nombre = PARAMETROS.PEON;
 	this.setPosition(x, y);
@@ -19441,7 +19441,7 @@ Peon.prototype.puedeMover = function(x, y) {
 }
 
 function Torre(tablero, fichas, x, y, color) {
-	this.ficha = $('<div class="pieza glyphicon glyphicon-tower"></div>');
+	this.ficha = $('<div class="pieza"><i class="fas fa-chess-rook"></i></div>');
 	Ficha.call(this, tablero, fichas, x, y);
 	this.nombre = PARAMETROS.TORRE;
 	this.setPosition(x, y);
@@ -19462,7 +19462,7 @@ Torre.prototype.puedeMover = function(x, y) {
 	return false;
 }
 function Caballo(tablero, fichas, x, y, color) {
-	this.ficha = $('<div class="pieza glyphicon glyphicon-knight"></div>');
+	this.ficha = $('<div class="pieza"><i class="fas fa-chess-knight"></i></div>');
 	Ficha.call(this, tablero, fichas, x, y);
 	this.nombre = PARAMETROS.CABALLO;
 	this.setPosition(x, y);
@@ -19485,7 +19485,7 @@ Caballo.prototype.puedeMover = function(x, y) {
 	return false;
 }
 function Alfil(tablero, fichas, x, y, color) {
-	this.ficha = $('<div class="pieza glyphicon glyphicon-bishop"></div>');
+	this.ficha = $('<div class="pieza"><i class="fas fa-chess-bishop"></i></div>');
 	Ficha.call(this, tablero, fichas, x, y);
 	this.nombre = PARAMETROS.ALFIL;
 	this.setPosition(x, y);
@@ -19502,7 +19502,7 @@ Alfil.prototype.puedeMover = function(x, y) {
 	return false;
 }
 function Reina(tablero, fichas, x, y, color) {
-	this.ficha = $('<div class="pieza glyphicon glyphicon-queen"></div>');
+	this.ficha = $('<div class="pieza"><i class="fas fa-chess-queen"></i></div>');
 	Ficha.call(this, tablero, fichas, x, y);
 	this.nombre = PARAMETROS.REINA;
 	this.setPosition(x, y);
@@ -19535,7 +19535,7 @@ Reina.prototype.puedeMover = function(x, y) {
 }
 
 function Rey(tablero, fichas, x, y, color) {
-	this.ficha = $('<div class="pieza glyphicon glyphicon-king"></div>');
+	this.ficha = $('<div class="pieza"><i class="fas fa-chess-king"></i></div>');
 	Ficha.call(this, tablero, fichas, x, y);
 	this.nombre = PARAMETROS.REY;
 	this.setPosition(x, y);

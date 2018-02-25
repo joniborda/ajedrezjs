@@ -1,5 +1,5 @@
 function Torre(tablero, fichas, x, y, color) {
-	this.ficha = $('<div class="pieza glyphicon glyphicon-tower"></div>');
+	this.ficha = $('<div class="pieza"><i class="fas fa-chess-rook"></i></div>');
 	Ficha.call(this, tablero, fichas, x, y);
 	this.nombre = PARAMETROS.TORRE;
 	this.setPosition(x, y);
