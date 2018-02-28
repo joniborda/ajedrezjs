@@ -74,12 +74,32 @@ for (var j = 0; j < 8; j++) {
 tablero.setTurno(PARAMETROS.BLANCA);
 
 // va a mostrar los usuarios conectados en una lista html
-function mostrarUsuario(usuarios) {
+function mostrar_usuarios(usuarios) {
 
-	var usuarios_conectados_html = $('#usuarios_conectados');
+	var usuarios_conectados_html = $('#input_usuarios_conectados');
 	usuarios_conectados_html.html('');
 	for (var i = usuarios.length - 1; i >= 0; i--) {
-		var li = '<li usuario_id="' + usuarios[i] + '">' + usuarios[i] + '</li>';
+		var option = '<option value="' + usuarios[i] + '">' + usuarios[i] + '</option>';
+		usuarios_conectados_html.append(option);
+	}
+}
+
+function mostrar_solicitudes(solicitudes) {
+
+	var solicitudes_html = $('#solicitudes_partidas');
+	solicitudes_html.html('');
+	for (var i = solicitudes.length - 1; i >= 0; i--) {
+		var li = '<li class="solicitud_seleccionada" value="' + solicitudes[i] + '">' + solicitudes[i] + '</li>';
 		usuarios_conectados_html.append(li);
 	}
 }
+
+$(document).on('click', '.solicitud_seleccionada', function(e) {
+	e.preventDefault();
+	confirmar_solicitud($(this).val());
+	return false;
+});
+
+$(document).ready(function() {
+	conectar();
+});

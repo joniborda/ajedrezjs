@@ -41,12 +41,25 @@
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
-					<h4 class="modal-title">Modal title</h4>
+					<h4 class="modal-title">Nueva Partida</h4>
 				</div>
 				<div class="modal-body">
-					<ul id="usuarios_conectados">
-					</ul>
-					<p>One fine body&hellip;</p>
+					<div class="row">
+						<div class="col-xs-9">
+							<form id="form_nueva_partida">
+								<input type="text" id="input_mi_uuario" />
+								<select id="input_usuarios_conectados">
+								</select>
+								<button>Crear</button>
+							</form>
+						</div>
+						<div class="col-xs-3">
+							Solicitudes de partidas
+							<ul id="solicitudes_partidas">
+								
+							</ul>
+						</div>
+					</div>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

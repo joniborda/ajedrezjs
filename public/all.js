@@ -19861,48 +19861,77 @@ for (var j = 0; j < 8; j++) {
 tablero.setTurno(PARAMETROS.BLANCA);
 
 // va a mostrar los usuarios conectados en una lista html
-function mostrarUsuario(usuarios) {
+function mostrar_usuarios(usuarios) {
 
-	var usuarios_conectados_html = $('#usuarios_conectados');
+	var usuarios_conectados_html = $('#input_usuarios_conectados');
 	usuarios_conectados_html.html('');
 	for (var i = usuarios.length - 1; i >= 0; i--) {
 		var option = '<option value="' + usuarios[i] + '">' + usuarios[i] + '</option>';
 		usuarios_conectados_html.append(option);
 	}
 }
+
+function mostrar_solicitudes(solicitudes) {
+
+	var solicitudes_html = $('#solicitudes_partidas');
+	solicitudes_html.html('');
+	for (var i = solicitudes.length - 1; i >= 0; i--) {
+		var li = '<li class="solicitud_seleccionada" value="' + solicitudes[i] + '">' + solicitudes[i] + '</li>';
+		usuarios_conectados_html.append(li);
+	}
+}
+
+$(document).on('click', '.solicitud_seleccionada', function(e) {
+	e.preventDefault();
+	confirmar_solicitud($(this).val());
+	return false;
+});
+
+$(document).ready(function() {
+	conectar();
+});
 var socket = null;
 
 var data_socket = {
 	socket_id: null,
 	username: null
 };
-function conectar(username) {
+function conectar() {
 	socket = io.connect('http://localhost:5000');
 	cargar_escuchadores();
-	socket.emit('add_user', username);
 }
 
-function nueva_solicitud(username) {
-	socket.emit('nueva_solicitud', username);
+function nueva_partida(mi_usuario, contrincante, mi_color) {
+	socket.emit('add_user', mi_usuario);
+	// las partidas puede ser con un usuario elegido a sin usuario, esperando que alguien se una
+	socket.emit('nueva_partida', contrincante, mi_color);
 }
-
 
 function cargar_escuchadores() {
 	socket.on('connect', function() {
-
 	});
 
 	socket.on('usuarios_conectados', function(data) {
-		console.log(data);
-		mostrarUsuario(data);
+		mostrar_usuarios(data);
 	});
 
 	socket.on('added_user', function(socket_id) {
 		data_socket.socket_id = socket_id;
 	});
 
-	socket.on('solicitud_partida', function(socket_id) {
-		console.log('pidio');
+	socket.on('mis_solicitudes_partida', function(solicitudes) {
+		cargar_solicitudes(solicitudes);
 	});
+
+	socket.on('enviar_solicitud', function(data) {
+		contrincante = data.name;
+		color = data.color;
+	});
+
+	socket.on('confirma_mi_partida', function(data) {
+		contrincante = data.name;
+		color = data.color;
+	});
+
 }
 var para = require("parametros");

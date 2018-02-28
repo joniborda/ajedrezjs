@@ -2,7 +2,7 @@ var express = require('express'),
     app = express(),
     server = require('http').Server(app),
     io = require('socket.io')(server, { ws: true}), 
-    usuarios_conectados = [],
+    usuarios_conectados = {},
     parametros = require('./src/parametros.js'),
     clientes = [];
 
@@ -15,22 +15,28 @@ app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
 app.use('/static/fontawesome/', express.static(__dirname + '/src/fontawesome/svg-with-js/js'));
 
 io.on('connection', function(socket) {
-    console.log('alguien se conecto');
-
-    //io.emit('update_rooms', rooms);
-    clientes[socket.id] = socket;
-
     socket.emit('usuarios_conectados', usuarios_conectados);
 
     socket.on('add_user', function(username) {
         socket.username = username;
         console.log('usuario agregado ' + username);
-        usuarios_conectados.push(username);
+        usuarios_conectados[username] = socket;
         socket.emit('added_user', socket.id);
     });
 
-	socket.on('nueva_solicitud', function(data) {
-    	clientes[socket.id].emit('solitud_partida');
+	socket.on('nueva_partida', function(contrincante, mi_color) {
+		if (!usuarios_conectados[contrincante]) {
+			console.log('usuario se fue');
+			return;
+		}
+
+		var data = {
+			usuario: socket.username,
+			contrincante: contrincante,
+			mi_color: mi_color
+		}
+
+		usuarios_conectados[contrincante].emit('enviar_solicitud', data);
     });
 
     socket.on('movimiento', function(data) {
