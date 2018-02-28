@@ -18721,8 +18721,7 @@ var effectsEffectTransfer = effect;
 
 
 }));
-require=(function(){function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s}return e})()({"parametros":[function(require,module,exports){
-
+(function(){function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s}return e})()({1:[function(require,module,exports){
 var dibujo_tablero = 
 "00 01 02 03 04 05 06 07" +
 "10 11 12 13 14 15 16 17" +
@@ -18752,9 +18751,10 @@ module.exports = {
 	TAMANO_FICHA: 50,
 	reloj_blanca: null,
 	reloj_negra: null,
-	TURNO: 0 // blanca
+	TURNO: 0, // blanca,
+	SOLICITUDES: null
 }
-},{}]},{},[]);
+},{}]},{},[1]);
 
 function Jugador(id, color) {
 	this.id = id;
@@ -19673,7 +19673,7 @@ Reloj.prototype.setTurno = function(turno) {
 		}
 	}, 1000);
 }
-var PARAMETROS = require('parametros');
+var PARAMETROS = require('1');
 
 function Tablero(tablero) {
 	this.tablero = tablero;
@@ -19856,7 +19856,7 @@ for (var j = 0; j < 8; j++) {
 	}
 }
 
-tablero.setTurno(parametros.BLANCA);
+tablero.setTurno(PARAMETROS.BLANCA);
 
 // va a mostrar los usuarios conectados en una lista html
 function mostrar_usuarios(usuarios) {
@@ -19872,8 +19872,8 @@ function mostrar_solicitudes() {
 
 	var solicitudes_html = $('#solicitudes_partidas');
 	solicitudes_html.html('');
-	for (var i = parametros.SOLICITUDES.length - 1; i >= 0; i--) {
-		var li = '<li class="solicitud_seleccionada" value="' + parametros.SOLICITUDES[i] + '">' + parametros.SOLICITUDES[i] + '</li>';
+	for (var i = PARAMETROS.SOLICITUDES.length - 1; i >= 0; i--) {
+		var li = '<li class="solicitud_seleccionada" value="' + PARAMETROS.SOLICITUDES[i] + '">' + PARAMETROS.SOLICITUDES[i] + '</li>';
 		usuarios_conectados_html.append(li);
 	}
 }
@@ -19897,7 +19897,7 @@ $(document).on('submit', '#form_nuevo_usuario', function(e) {
 
 $(document).on('submit', '#form_nueva_partida', function(e) {
 	e.preventDefault();
-	crear_partida($(this).find('#input_usuarios_conectados').val(), parametros.BLANCA);
+	crear_partida($(this).find('#input_usuarios_conectados').val(), PARAMETROS.BLANCA);
 	return false;
 });
 
@@ -19954,4 +19954,3 @@ function cargar_escuchadores() {
 	});
 
 }
-var para = require("parametros");

@@ -1,4 +1,3 @@
-
 var dibujo_tablero = 
 "00 01 02 03 04 05 06 07" +
 "10 11 12 13 14 15 16 17" +
@@ -29,5 +28,5 @@ module.exports = {
 	reloj_blanca: null,
 	reloj_negra: null,
 	TURNO: 0, // blanca,
-	SOLICITUDES: []
+	SOLICITUDES: null
 }

@@ -47,4 +47,3 @@ function cargar_escuchadores() {
 	});
 
 }
-var para = require("parametros");
