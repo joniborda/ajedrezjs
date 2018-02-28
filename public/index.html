@@ -46,18 +46,24 @@
 				<div class="modal-body">
 					<div class="row">
 						<div class="col-xs-9">
-							<form id="form_nueva_partida">
-								<input type="text" id="input_mi_uuario" />
-								<select id="input_usuarios_conectados">
+							<form id="form_nuevo_usuario">
+								<input type="text" class="input_mi_uuario form-control" placeholder="Nombre de usuario" />
+								<button class="btn">Crear</button>
+							</form>
+							
+							<form class="ocultar" id="form_nueva_partida">
+								<select id="input_usuarios_conectados" class="form-control">
 								</select>
-								<button>Crear</button>
+								<button class="btn">Crear</button>
 							</form>
 						</div>
 						<div class="col-xs-3">
-							Solicitudes de partidas
-							<ul id="solicitudes_partidas">
-								
-							</ul>
+							<fieldset>
+								<legend>Solicitudes de partidas</legend>
+								<ul class="solicitudes_partidas">
+									
+								</ul>
+							</fieldset>
 						</div>
 					</div>
 				</div>

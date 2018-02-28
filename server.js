@@ -2,7 +2,7 @@ var express = require('express'),
     app = express(),
     server = require('http').Server(app),
     io = require('socket.io')(server, { ws: true}), 
-    usuarios_conectados = {},
+    usuarios_conectados = [],
     parametros = require('./src/parametros.js'),
     clientes = [];
 
@@ -15,17 +15,31 @@ app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
 app.use('/static/fontawesome/', express.static(__dirname + '/src/fontawesome/svg-with-js/js'));
 
 io.on('connection', function(socket) {
-    socket.emit('usuarios_conectados', usuarios_conectados);
+    clientes[socket.id] = socket;
 
     socket.on('add_user', function(username) {
         socket.username = username;
-        console.log('usuario agregado ' + username);
-        usuarios_conectados[username] = socket;
+        var data = {
+            socket_id: socket.id,
+            username: username
+        };
+        usuarios_conectados.push(data);
         socket.emit('added_user', socket.id);
+
+        for (var i in clientes) {
+            clientes[i].emit('usuarios_conectados', usuarios_conectados);
+        }
     });
 
-	socket.on('nueva_partida', function(contrincante, mi_color) {
-		if (!usuarios_conectados[contrincante]) {
+	socket.on('crear_partida', function(contrincante, mi_color) {
+        var indice_contrincante = false;
+        for (var i in usuarios_conectados) {
+            if (usuarios_conectados[i].username == contrincante) {
+                indice_contrincante = i;
+                break;
+            }
+        };
+		if (indice_contrincante === false) {
 			console.log('usuario se fue');
 			return;
 		}
@@ -36,7 +50,7 @@ io.on('connection', function(socket) {
 			mi_color: mi_color
 		}
 
-		usuarios_conectados[contrincante].emit('enviar_solicitud', data);
+		clientes[usuarios_conectados[indice_contrincante].socket_id].emit('enviar_solicitud', data);
     });
 
     socket.on('movimiento', function(data) {

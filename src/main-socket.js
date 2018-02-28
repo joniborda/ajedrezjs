@@ -9,10 +9,13 @@ function conectar() {
 	cargar_escuchadores();
 }
 
-function nueva_partida(mi_usuario, contrincante, mi_color) {
+function agregar_usuario(mi_usuario) {
 	socket.emit('add_user', mi_usuario);
+}
+
+function crear_partida(contrincante, mi_color) {
 	// las partidas puede ser con un usuario elegido a sin usuario, esperando que alguien se una
-	socket.emit('nueva_partida', contrincante, mi_color);
+	socket.emit('crear_partida', contrincante, mi_color);
 }
 
 function cargar_escuchadores() {
@@ -20,11 +23,13 @@ function cargar_escuchadores() {
 	});
 
 	socket.on('usuarios_conectados', function(data) {
+		console.log(data);
 		mostrar_usuarios(data);
 	});
 
 	socket.on('added_user', function(socket_id) {
 		data_socket.socket_id = socket_id;
+		mostrar_form_nueva_partida();
 	});
 
 	socket.on('mis_solicitudes_partida', function(solicitudes) {
@@ -32,8 +37,8 @@ function cargar_escuchadores() {
 	});
 
 	socket.on('enviar_solicitud', function(data) {
-		contrincante = data.name;
-		color = data.color;
+		parametros.SOLICITUDES.push(data);
+		mostrar_solicitudes();
 	});
 
 	socket.on('confirma_mi_partida', function(data) {

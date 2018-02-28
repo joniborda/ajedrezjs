@@ -19787,8 +19787,6 @@ Tablero.prototype.setTurno = function(turno) {
 }
 tablero = new Tablero($('#tablero'));
 
-$('#myModal').modal();
-
 tablero.iniciar();
 
 var caballo = tablero.fichas[1][0];
@@ -19858,27 +19856,31 @@ for (var j = 0; j < 8; j++) {
 	}
 }
 
-tablero.setTurno(PARAMETROS.BLANCA);
+tablero.setTurno(parametros.BLANCA);
 
 // va a mostrar los usuarios conectados en una lista html
 function mostrar_usuarios(usuarios) {
-
 	var usuarios_conectados_html = $('#input_usuarios_conectados');
 	usuarios_conectados_html.html('');
-	for (var i = usuarios.length - 1; i >= 0; i--) {
-		var option = '<option value="' + usuarios[i] + '">' + usuarios[i] + '</option>';
+	for (var i in usuarios) {
+		var option = '<option value="' + usuarios[i].username + '">' + usuarios[i].username + '</option>';
 		usuarios_conectados_html.append(option);
 	}
 }
 
-function mostrar_solicitudes(solicitudes) {
+function mostrar_solicitudes() {
 
 	var solicitudes_html = $('#solicitudes_partidas');
 	solicitudes_html.html('');
-	for (var i = solicitudes.length - 1; i >= 0; i--) {
-		var li = '<li class="solicitud_seleccionada" value="' + solicitudes[i] + '">' + solicitudes[i] + '</li>';
+	for (var i = parametros.SOLICITUDES.length - 1; i >= 0; i--) {
+		var li = '<li class="solicitud_seleccionada" value="' + parametros.SOLICITUDES[i] + '">' + parametros.SOLICITUDES[i] + '</li>';
 		usuarios_conectados_html.append(li);
 	}
+}
+
+function mostrar_form_nueva_partida() {
+	$('#form_nuevo_usuario').hide();
+	$('#form_nueva_partida').removeClass('ocultar').show();
 }
 
 $(document).on('click', '.solicitud_seleccionada', function(e) {
@@ -19887,7 +19889,20 @@ $(document).on('click', '.solicitud_seleccionada', function(e) {
 	return false;
 });
 
+$(document).on('submit', '#form_nuevo_usuario', function(e) {
+	e.preventDefault();
+	agregar_usuario($(this).find('.input_mi_uuario').val());
+	return false;
+});
+
+$(document).on('submit', '#form_nueva_partida', function(e) {
+	e.preventDefault();
+	crear_partida($(this).find('#input_usuarios_conectados').val(), parametros.BLANCA);
+	return false;
+});
+
 $(document).ready(function() {
+	$('#myModal').modal();
 	conectar();
 });
 var socket = null;
@@ -19901,10 +19916,13 @@ function conectar() {
 	cargar_escuchadores();
 }
 
-function nueva_partida(mi_usuario, contrincante, mi_color) {
+function agregar_usuario(mi_usuario) {
 	socket.emit('add_user', mi_usuario);
+}
+
+function crear_partida(contrincante, mi_color) {
 	// las partidas puede ser con un usuario elegido a sin usuario, esperando que alguien se una
-	socket.emit('nueva_partida', contrincante, mi_color);
+	socket.emit('crear_partida', contrincante, mi_color);
 }
 
 function cargar_escuchadores() {
@@ -19912,11 +19930,13 @@ function cargar_escuchadores() {
 	});
 
 	socket.on('usuarios_conectados', function(data) {
+		console.log(data);
 		mostrar_usuarios(data);
 	});
 
 	socket.on('added_user', function(socket_id) {
 		data_socket.socket_id = socket_id;
+		mostrar_form_nueva_partida();
 	});
 
 	socket.on('mis_solicitudes_partida', function(solicitudes) {
@@ -19924,8 +19944,8 @@ function cargar_escuchadores() {
 	});
 
 	socket.on('enviar_solicitud', function(data) {
-		contrincante = data.name;
-		color = data.color;
+		parametros.SOLICITUDES.push(data);
+		mostrar_solicitudes();
 	});
 
 	socket.on('confirma_mi_partida', function(data) {
