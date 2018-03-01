@@ -45,20 +45,29 @@ io.on('connection', function(socket) {
 		}
 
 		var data = {
+            usuario_socket_id: socket.id,
 			usuario: socket.username,
 			contrincante: contrincante,
+            contrincante_socket_id: usuarios_conectados[indice_contrincante].socket_id,
 			mi_color: mi_color
 		}
 
 		clientes[usuarios_conectados[indice_contrincante].socket_id].emit('enviar_solicitud', data);
     });
 
-    socket.on('movimiento', function(data) {
+    socket.on('confirmar_solicitud', function(socket_id, contrincante) {
+        console.log('socket_id '  + socket_id);
+        console.log('contrincante '  + contrincante);
+        clientes[socket_id].emit('solicitud_confirmada', socket_id, contrincante);
     });
 
     //cuando un usuario se desconecta
     socket.on('disconnect', function() {
+        clientes.splice(socket.id, 1);
 
+        for (var i in clientes) {
+            clientes[i].emit('usuarios_conectados', usuarios_conectados);
+        }
     });
 });
 

@@ -1,7 +1,5 @@
 tablero = new Tablero($('#tablero'));
 
-tablero.iniciar();
-
 var caballo = tablero.fichas[1][0];
 var posiciones_recorridas = [];
 for (var i = 0; i < 8; i++) {
@@ -69,8 +67,6 @@ for (var j = 0; j < 8; j++) {
 	}
 }
 
-tablero.setTurno(PARAMETROS.BLANCA);
-
 // va a mostrar los usuarios conectados en una lista html
 function mostrar_usuarios(usuarios) {
 	var usuarios_conectados_html = $('#input_usuarios_conectados');
@@ -83,11 +79,25 @@ function mostrar_usuarios(usuarios) {
 
 function mostrar_solicitudes() {
 
-	var solicitudes_html = $('#solicitudes_partidas');
+	var solicitudes_html = $('.solicitudes_partidas');
 	solicitudes_html.html('');
 	for (var i = PARAMETROS.SOLICITUDES.length - 1; i >= 0; i--) {
-		var li = '<li class="solicitud_seleccionada" value="' + PARAMETROS.SOLICITUDES[i] + '">' + PARAMETROS.SOLICITUDES[i] + '</li>';
-		usuarios_conectados_html.append(li);
+
+		var solicitud_usuario = PARAMETROS.SOLICITUDES[i].usuario;
+		var contrincante_socket_id = PARAMETROS.SOLICITUDES[i].usuario_socket_id;
+
+		if (PARAMETROS.SOLICITUDES[i].contrincante !== data_socket.username) {
+			solicitud_usuario = PARAMETROS.SOLICITUDES[i].contrincante;
+			contrincante_socket_id = PARAMETROS.SOLICITUDES[i].contrincante_socket_id;
+		}
+
+		var li = '<li ' +
+			'class="solicitud_seleccionada" ' +
+			'socket_id="' + contrincante_socket_id + '" ' +
+			'contrincante="' + solicitud_usuario + '">' + 
+			solicitud_usuario + 
+			'</li>';
+		solicitudes_html.append(li);
 	}
 }
 
@@ -96,9 +106,14 @@ function mostrar_form_nueva_partida() {
 	$('#form_nueva_partida').removeClass('ocultar').show();
 }
 
+function solicitud_confirmada(socket_id, contrincante) {
+	$('#myModal').modal('hide');
+	tablero.iniciar();
+}
+
 $(document).on('click', '.solicitud_seleccionada', function(e) {
 	e.preventDefault();
-	confirmar_solicitud($(this).val());
+	confirmar_solicitud($(this).attr('socket_id'), $(this).attr('contrincante'));
 	return false;
 });
 

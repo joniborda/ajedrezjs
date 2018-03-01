@@ -39,6 +39,9 @@ function Tablero(tablero) {
 };
 
 Tablero.prototype.iniciar = function() {
+	
+	this.setTurno(PARAMETROS.BLANCA);
+
 	var pieza = null;
 	for (var i = 0; i < 8; i++) {
 		pieza = new Peon(this.tablero, this.fichas, i, 1, PARAMETROS.BLANCA);
