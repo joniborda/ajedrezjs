@@ -27,6 +27,5 @@ module.exports = {
 	TAMANO_FICHA: 50,
 	reloj_blanca: null,
 	reloj_negra: null,
-	TURNO: 0, // blanca,
-	SOLICITUDES: null
+	TURNO: 0 // blanca,
 }

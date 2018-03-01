@@ -1,4 +1,4 @@
-var PARAMETROS = require('1');
+var PARAMETROS = require('parametros');
 
 function Tablero(tablero) {
 	this.tablero = tablero;

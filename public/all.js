@@ -18721,7 +18721,7 @@ var effectsEffectTransfer = effect;
 
 
 }));
-(function(){function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s}return e})()({1:[function(require,module,exports){
+require=(function(){function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s}return e})()({"parametros":[function(require,module,exports){
 var dibujo_tablero = 
 "00 01 02 03 04 05 06 07" +
 "10 11 12 13 14 15 16 17" +
@@ -18751,10 +18751,9 @@ module.exports = {
 	TAMANO_FICHA: 50,
 	reloj_blanca: null,
 	reloj_negra: null,
-	TURNO: 0, // blanca,
-	SOLICITUDES: null
+	TURNO: 0 // blanca,
 }
-},{}]},{},[1]);
+},{}]},{},[]);
 
 function Jugador(id, color) {
 	this.id = id;
@@ -19673,7 +19672,7 @@ Reloj.prototype.setTurno = function(turno) {
 		}
 	}, 1000);
 }
-var PARAMETROS = require('1');
+var PARAMETROS = require('parametros');
 
 function Tablero(tablero) {
 	this.tablero = tablero;
