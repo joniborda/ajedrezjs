@@ -75,10 +75,7 @@ Tablero.prototype.iniciar = function() {
 
 Tablero.prototype.mover = function(x1, y1, x2, y2) {
 	if (this.fichas[x1] && this.fichas[x1][y1]) {
-		console.log(this.fichas[x1][y1]);
 		if (this.fichas[x1][y1].mover(x2,y2)) {
-
-			enviar_movimiento(x1, y1, x2, y2);
 
 			if (this.turno == PARAMETROS.BLANCA) {
 				this.setTurno(PARAMETROS.NEGRA);

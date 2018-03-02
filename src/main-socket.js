@@ -26,6 +26,7 @@ function confirmar_solicitud(contrincante_socket_id, contrincante, socket_id, us
 }
 
 function enviar_movimiento(x1, y1, x2, y2) {
+	deshabilitarMe();
 	socket.emit('enviar_movimiento', data_socket.contrincante_socket_id, x1, y1, x2, y2);
 }
 
@@ -50,6 +51,7 @@ function cargar_escuchadores() {
 	});
 
 	socket.on('movimiento', function(socket_id, x1, y1, x2, y2) {
+		habilitarMe();
 		tablero.mover(x1, y1, x2, y2);
 	});
 

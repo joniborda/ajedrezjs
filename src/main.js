@@ -18,12 +18,13 @@ function main_iniciar_juego() {
 				drop: function( event, ui ) {
 
 					if ($(ui).length) {
-						if (tablero.mover(
-							parseInt(ui.draggable.attr('x')), 
-							parseInt(ui.draggable.attr('y')), 
-							parseInt($(this).attr('x')), 
-							parseInt($(this).attr('y'))
-						)) {
+						var x1 = parseInt(ui.draggable.attr('x')),
+							y1 = parseInt(ui.draggable.attr('y')),
+							x2 = parseInt($(this).attr('x')),
+							y2 = parseInt($(this).attr('y'));
+
+						if (tablero.mover(x1, y1, x2, y2)) {
+							enviar_movimiento(x1, y1, x2, y2);
 						}
 					}
 				}
@@ -72,6 +73,25 @@ function main_iniciar_juego() {
 		}
 	}
 	tablero.setTurno(PARAMETROS.BLANCA);
+}
+
+function habilitarMe() {
+	for (var j = 0; j < 8; j++) {
+		for (var i = 0; i < 8; i++) {
+			if (tablero.fichas[j] && tablero.fichas[j][i] && tablero.fichas[j][i].ficha) {
+				$(tablero.fichas[j][i].ficha).draggable('enable');
+			}
+		}
+	}
+}
+function deshabilitarMe() {
+	for (var j = 0; j < 8; j++) {
+		for (var i = 0; i < 8; i++) {
+			if (tablero.fichas[j] && tablero.fichas[j][i] && tablero.fichas[j][i].ficha) {
+				$(tablero.fichas[j][i].ficha).draggable('disable');
+			}
+		}
+	}
 }
 
 // va a mostrar los usuarios conectados en una lista html
