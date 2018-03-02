@@ -19,8 +19,14 @@ function crear_partida(contrincante, mi_color) {
 	socket.emit('crear_partida', contrincante, mi_color);
 }
 
-function confirmar_solicitud(socket_id, contrincante) {
-	socket.emit('confirmar_solicitud', socket_id, contrincante);
+function confirmar_solicitud(contrincante_socket_id, contrincante, socket_id, username) {
+	socket.emit('confirmar_solicitud', contrincante_socket_id, contrincante, socket_id, username);
+	
+	solicitud_confirmada(socket_id, username, contrincante_socket_id, contrincante);
+}
+
+function enviar_movimiento(x1, y1, x2, y2) {
+	socket.emit('enviar_movimiento', data_socket.contrincante_socket_id, x1, y1, x2, y2);
 }
 
 function cargar_escuchadores() {
@@ -43,13 +49,16 @@ function cargar_escuchadores() {
 
 	// sucede cuando el servidor te manda una solicitud
 	socket.on('enviar_solicitud', function(data) {
-		console.log(data);
 		PARAMETROS.SOLICITUDES.push(data);
 		mostrar_solicitudes();
 	});
 
-	socket.on('solicitud_confirmada', function(socket_id, contrincante) {
-		solicitud_confirmada();
+	socket.on('movimiento', function(socket_id, x1, y1, x2, y2) {
+		tablero.mover(x1, y1, x2, y2);
+	});
+
+	socket.on('solicitud_confirmada', function(socket_id, username, contrincante_socket_id, contrincante) {
+		solicitud_confirmada(socket_id, username, contrincante_socket_id, contrincante);
 	});
 
 	

@@ -1,70 +1,77 @@
-tablero = new Tablero($('#tablero'));
+var tablero = null;
+function main_iniciar_juego() {
 
-var caballo = tablero.fichas[1][0];
-var posiciones_recorridas = [];
-for (var i = 0; i < 8; i++) {
-	posiciones_recorridas[i] = [];
-}
+	tablero = new Tablero($('#tablero'));
 
-// esto tiene que estar afuera porque sino no tiene la intancia
-for (var j = 0; j < 8; j++) {
+	tablero.iniciar();
+
+	var caballo = tablero.fichas[1][0];
+	var posiciones_recorridas = [];
 	for (var i = 0; i < 8; i++) {
-		tablero.casillas[j][i].droppable({
-			drop: function( event, ui ) {
-
-				if ($(ui).length) {
-					if (tablero.mover(
-						parseInt(ui.draggable.attr('x')), 
-						parseInt(ui.draggable.attr('y')), 
-						parseInt($(this).attr('x')), 
-						parseInt($(this).attr('y'))
-					)) {
-					}
-				}
-			}
-		});
+		posiciones_recorridas[i] = [];
 	}
-}
 
-// esto tiene que estar afuera porque sino no tiene la intancia
-for (var j = 0; j < 8; j++) {
-	for (var i = 0; i < 8; i++) {
-		if (tablero.fichas[j][i]) {
-			$(tablero.fichas[j][i].ficha).click(function(e) {
-	  			tablero.tablero.find('.casilla_habilitada').remove();
-				if (tablero.fichas[parseInt($(this).attr('x'))][parseInt($(this).attr('y'))].color == tablero.jugadores[tablero.turno].color) {
-					for (var o = 0; o < 8; o++) {
-						for (var p = 0; p < 8; p++) {
-							if (tablero.fichas[parseInt($(this).attr('x'))][parseInt($(this).attr('y'))].habilitadaMover(o, p)) {
-								if (tablero.casillas[o][p].find('.casilla_habilitada').length === 0) {
-									tablero.casillas[o][p].append('<div class="casilla_habilitada"><div>');
-								}
-							}
+	// esto tiene que estar afuera porque sino no tiene la intancia
+	for (var j = 0; j < 8; j++) {
+		for (var i = 0; i < 8; i++) {
+			tablero.casillas[j][i].droppable({
+				drop: function( event, ui ) {
+
+					if ($(ui).length) {
+						if (tablero.mover(
+							parseInt(ui.draggable.attr('x')), 
+							parseInt(ui.draggable.attr('y')), 
+							parseInt($(this).attr('x')), 
+							parseInt($(this).attr('y'))
+						)) {
 						}
 					}
 				}
-			});
-
-			$(tablero.fichas[j][i].ficha).draggable({
-				containment: tablero.tablero,
-				start: function(event, ui) {
-					tablero.tablero.find('.casilla_habilitada').remove();
-					if (tablero.fichas[parseInt($(this).attr('x'))][parseInt($(this).attr('y'))] && tablero.fichas[parseInt($(this).attr('x'))][parseInt($(this).attr('y'))].color == tablero.jugadores[tablero.turno].color) {
-						for (var o = 0; o < 8; o++) {
-							for (var p = 0; p < 8; p++) {
-								if (tablero.fichas[parseInt($(this).attr('x'))][parseInt($(this).attr('y'))].habilitadaMover(o, p)) {
-									tablero.casillas[o][p].append('<div class="casilla_habilitada"><div>');
-								}
-							}
-						}
-					}
-		  		},
-		  		stop: function(event, ui) {
-		  			tablero.tablero.find('.casilla_habilitada').remove();
-		  		}
 			});
 		}
 	}
+
+	// esto tiene que estar afuera porque sino no tiene la intancia
+	for (var j = 0; j < 8; j++) {
+		for (var i = 0; i < 8; i++) {
+			if (tablero.fichas[j][i]) {
+				$(tablero.fichas[j][i].ficha).click(function(e) {
+		  			tablero.tablero.find('.casilla_habilitada').remove();
+					if (tablero.fichas[parseInt($(this).attr('x'))][parseInt($(this).attr('y'))].color == tablero.jugadores[tablero.turno].color) {
+						for (var o = 0; o < 8; o++) {
+							for (var p = 0; p < 8; p++) {
+								if (tablero.fichas[parseInt($(this).attr('x'))][parseInt($(this).attr('y'))].habilitadaMover(o, p)) {
+									if (tablero.casillas[o][p].find('.casilla_habilitada').length === 0) {
+										tablero.casillas[o][p].append('<div class="casilla_habilitada"><div>');
+									}
+								}
+							}
+						}
+					}
+				});
+
+				$(tablero.fichas[j][i].ficha).draggable({
+					containment: tablero.tablero,
+					start: function(event, ui) {
+						tablero.tablero.find('.casilla_habilitada').remove();
+						if (tablero.fichas[parseInt($(this).attr('x'))][parseInt($(this).attr('y'))] && tablero.fichas[parseInt($(this).attr('x'))][parseInt($(this).attr('y'))].color == tablero.jugadores[tablero.turno].color) {
+							for (var o = 0; o < 8; o++) {
+								for (var p = 0; p < 8; p++) {
+									if (tablero.fichas[parseInt($(this).attr('x'))][parseInt($(this).attr('y'))].habilitadaMover(o, p)) {
+										tablero.casillas[o][p].append('<div class="casilla_habilitada"><div>');
+									}
+								}
+							}
+						}
+			  		},
+			  		stop: function(event, ui) {
+			  			tablero.tablero.find('.casilla_habilitada').remove();
+			  		}
+				});
+			}
+		}
+	}
+	tablero.setTurno(PARAMETROS.BLANCA);
 }
 
 // va a mostrar los usuarios conectados en una lista html
@@ -106,20 +113,23 @@ function mostrar_form_nueva_partida() {
 	$('#form_nueva_partida').removeClass('ocultar').show();
 }
 
-function solicitud_confirmada(socket_id, contrincante) {
+function solicitud_confirmada(socket_id, username, contrincante_socket_id, contrincante) {
 	$('#myModal').modal('hide');
-	tablero.iniciar();
+	data_socket.contrincante = contrincante;
+	data_socket.contrincante_socket_id = contrincante_socket_id;
+	console.log('contrincante : ' + contrincante);
+	main_iniciar_juego();
 }
 
 $(document).on('click', '.solicitud_seleccionada', function(e) {
 	e.preventDefault();
-	confirmar_solicitud($(this).attr('socket_id'), $(this).attr('contrincante'));
+	confirmar_solicitud($(this).attr('socket_id'), $(this).attr('contrincante'), data_socket.socket_id, data_socket.username);
 	return false;
 });
 
 $(document).on('submit', '#form_nuevo_usuario', function(e) {
 	e.preventDefault();
-	agregar_usuario($(this).find('.input_mi_uuario').val());
+	agregar_usuario($(this).find('.input_mi_usuario').val());
 	return false;
 });
 

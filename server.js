@@ -55,10 +55,12 @@ io.on('connection', function(socket) {
 		clientes[usuarios_conectados[indice_contrincante].socket_id].emit('enviar_solicitud', data);
     });
 
-    socket.on('confirmar_solicitud', function(socket_id, contrincante) {
-        console.log('socket_id '  + socket_id);
-        console.log('contrincante '  + contrincante);
-        clientes[socket_id].emit('solicitud_confirmada', socket_id, contrincante);
+    socket.on('confirmar_solicitud', function(contrincante_socket_id, contrincante, socket_id, username) {
+        clientes[contrincante_socket_id].emit('solicitud_confirmada', contrincante_socket_id, contrincante, socket_id, username);
+    });
+
+    socket.on('enviar_movimiento', function(socket_id, x1, y1, x2, y2) {
+        clientes[socket_id].emit('movimiento', socket_id, x1, y1, x2, y2);
     });
 
     //cuando un usuario se desconecta
