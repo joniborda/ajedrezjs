@@ -79,8 +79,10 @@ function mostrar_usuarios(usuarios) {
 	var usuarios_conectados_html = $('#input_usuarios_conectados');
 	usuarios_conectados_html.html('');
 	for (var i in usuarios) {
-		var option = '<option value="' + usuarios[i].username + '">' + usuarios[i].username + '</option>';
-		usuarios_conectados_html.append(option);
+		if (usuarios[i].username !== data_socket.username) {
+			var option = '<option value="' + usuarios[i].username + '">' + usuarios[i].username + '</option>';
+			usuarios_conectados_html.append(option);
+		}
 	}
 }
 

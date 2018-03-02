@@ -43,10 +43,6 @@ function cargar_escuchadores() {
 		mostrar_form_nueva_partida();
 	});
 
-	socket.on('mis_solicitudes_partida', function(solicitudes) {
-		cargar_solicitudes(solicitudes);
-	});
-
 	// sucede cuando el servidor te manda una solicitud
 	socket.on('enviar_solicitud', function(data) {
 		PARAMETROS.SOLICITUDES.push(data);
