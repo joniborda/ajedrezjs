@@ -157,7 +157,9 @@ $(document).on('submit', '#form_nuevo_usuario', function(e) {
 
 $(document).on('submit', '#form_nueva_partida', function(e) {
 	e.preventDefault();
-	crear_partida($(this).find('#input_usuarios_conectados').val(), PARAMETROS.BLANCA);
+	crear_partida($(this).find('#input_usuarios_conectados').val(), $(this).find('[name="input_color"]').val());
+
+	
 	return false;
 });
 

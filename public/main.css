@@ -39,7 +39,7 @@ body {
 	text-align: center;
 	padding-top: 3px;
 }
-.pieza.white {
+.pieza.white, .white {
 	color: white;
 }
 
@@ -89,4 +89,32 @@ body {
 	#reloj {
     	margin-left: 230px;
     }
+}
+
+.contanendor_color {
+	margin: auto;
+	text-align: center;
+	padding: 10px;
+}
+
+.seleccion_color {
+    width: 65px;
+    height: 50px;
+    background: #c5c5c5;
+    padding: 5px;
+    float: left;
+    font-size: 1.8em;
+}
+.color_izquierda {
+    margin-left: auto;
+}
+
+.color_derecha {
+    margin-right: auto;
+}
+
+.solicitudes {
+	padding: 10px;
+	min-height: 300px;
+	min-width: 250px;
 }

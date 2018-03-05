@@ -45,7 +45,7 @@
 				</div>
 				<div class="modal-body">
 					<div class="row">
-						<div class="col-xs-9">
+						<div class="col-md-6">
 							<form id="form_nuevo_usuario">
 								<input type="text" class="input_mi_usuario form-control" placeholder="Nombre de usuario" />
 								<button class="btn">Crear</button>
@@ -54,11 +54,27 @@
 							<form class="ocultar" id="form_nueva_partida">
 								<select id="input_usuarios_conectados" class="form-control">
 								</select>
-								<button class="btn">Crear</button>
+								<div class="row contanendor_color">
+									<div class="seleccion_color color_izquierda">
+										<input name="input_color" type="radio" id="input_color_blanco" class="solicitud_color" value="0" required="required" />
+										<label for="input_color_blanco">
+											<span class="fas fa-chess-pawn white">
+											</span>
+										</label>
+									</div>
+									<div class="seleccion_color color_derecha">
+										<input name="input_color" type="radio" id="input_color_negro" class="solicitud_color" value="1" required="required" />
+										<label for="input_color_negro">
+											<span class="fas fa-chess-pawn">
+											</span>
+										</label>
+									</div>
+								</div>
+								<button class="btn">Invitar</button>
 							</form>
 						</div>
-						<div class="col-xs-3">
-							<fieldset>
+						<div class="col-md-6">
+							<fieldset class="solicitudes">
 								<legend>Solicitudes de partidas</legend>
 								<ul class="solicitudes_partidas list-unstyled">
 									
@@ -66,10 +82,6 @@
 							</fieldset>
 						</div>
 					</div>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary">Save changes</button>
 				</div>
 			</div><!-- /.modal-content -->
 		</div><!-- /.modal-dialog -->
