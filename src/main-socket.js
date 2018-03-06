@@ -17,16 +17,20 @@ function agregar_usuario(mi_usuario) {
 function crear_partida(contrincante, mi_color) {
 	// las partidas puede ser con un usuario elegido a sin usuario, esperando que alguien se una
 	socket.emit('crear_partida', contrincante, mi_color);
+	data_socket.mi_color = mi_color;
 }
 
-function confirmar_solicitud(contrincante_socket_id, contrincante, socket_id, username) {
-	socket.emit('confirmar_solicitud', contrincante_socket_id, contrincante, socket_id, username);
+/*
+*	Es una solicitud del contrincante que la confirmo yo
+*/
+function confirmar_solicitud(contrincante_socket_id, contrincante, contrincante_color, socket_id, username, mi_color) {
+	socket.emit('confirmar_solicitud', contrincante_socket_id, contrincante, contrincante_color, socket_id, username, mi_color);
 	
-	solicitud_confirmada(socket_id, username, contrincante_socket_id, contrincante);
+	solicitud_confirmada(socket_id, username, mi_color, contrincante_socket_id, contrincante, contrincante_color);
 }
 
 function enviar_movimiento(x1, y1, x2, y2) {
-	deshabilitarMe();
+	//deshabilitarMe();
 	socket.emit('enviar_movimiento', data_socket.contrincante_socket_id, x1, y1, x2, y2);
 }
 
@@ -51,12 +55,12 @@ function cargar_escuchadores() {
 	});
 
 	socket.on('movimiento', function(socket_id, x1, y1, x2, y2) {
-		habilitarMe();
+		//habilitarMe();
 		tablero.mover(x1, y1, x2, y2);
 	});
 
-	socket.on('solicitud_confirmada', function(socket_id, username, contrincante_socket_id, contrincante) {
-		solicitud_confirmada(socket_id, username, contrincante_socket_id, contrincante);
+	socket.on('solicitud_confirmada', function(socket_id, username, mi_color, contrincante_socket_id, contrincante, contrincante_color) {
+		solicitud_confirmada(socket_id, username, mi_color, contrincante_socket_id, contrincante, contrincante_color);
 	});
 
 	

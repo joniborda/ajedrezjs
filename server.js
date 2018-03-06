@@ -44,23 +44,27 @@ io.on('connection', function(socket) {
 			return;
 		}
 
+        socket.mi_color = parseInt(mi_color, 10)
 		var data = {
             usuario_socket_id: socket.id,
-			usuario: socket.username,
-			contrincante: contrincante,
+            usuario: socket.username,
+			mi_color: socket.mi_color,
+            contrincante: contrincante,
             contrincante_socket_id: usuarios_conectados[indice_contrincante].socket_id,
-			mi_color: mi_color
+            contrincante_color: (socket.mi_color == parametros.BLANCA ? parametros.NEGRA : parametros.BLANCA)
 		}
 
 		clientes[usuarios_conectados[indice_contrincante].socket_id].emit('enviar_solicitud', data);
     });
 
-    socket.on('confirmar_solicitud', function(contrincante_socket_id, contrincante, socket_id, username) {
-        clientes[contrincante_socket_id].emit('solicitud_confirmada', contrincante_socket_id, contrincante, socket_id, username);
+    socket.on('confirmar_solicitud', function(contrincante_socket_id, contrincante, contrincante_color, socket_id, username, mi_color) {
+        clientes[contrincante_socket_id].emit('solicitud_confirmada', contrincante_socket_id, contrincante, contrincante_color, socket_id, username, mi_color);
     });
 
     socket.on('enviar_movimiento', function(socket_id, x1, y1, x2, y2) {
-        clientes[socket_id].emit('movimiento', socket_id, x1, y1, x2, y2);
+        if (clientes[socket_id]) {
+            clientes[socket_id].emit('movimiento', socket_id, x1, y1, x2, y2);
+        }
     });
 
     //cuando un usuario se desconecta

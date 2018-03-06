@@ -3,7 +3,7 @@ function main_iniciar_juego() {
 
 	tablero = new Tablero($('#tablero'));
 
-	tablero.iniciar();
+	tablero.iniciar(data_socket.mi_color);
 
 	var caballo = tablero.fichas[1][0];
 	var posiciones_recorridas = [];
@@ -72,6 +72,7 @@ function main_iniciar_juego() {
 			}
 		}
 	}
+	// siempre arranca con blancas
 	tablero.setTurno(PARAMETROS.BLANCA);
 }
 
@@ -114,18 +115,22 @@ function mostrar_solicitudes() {
 
 		var solicitud_usuario = PARAMETROS.SOLICITUDES[i].usuario;
 		var contrincante_socket_id = PARAMETROS.SOLICITUDES[i].usuario_socket_id;
+		var contrincante_color = PARAMETROS.SOLICITUDES[i].mi_color;
 
 		if (PARAMETROS.SOLICITUDES[i].contrincante !== data_socket.username) {
 			solicitud_usuario = PARAMETROS.SOLICITUDES[i].contrincante;
 			contrincante_socket_id = PARAMETROS.SOLICITUDES[i].contrincante_socket_id;
+			contrincante_color = PARAMETROS.SOLICITUDES[i].contrincante_color;
 		}
 
-		var li = '<li ' +
-			'class="solicitud_seleccionada" ' +
-			'socket_id="' + contrincante_socket_id + '" ' +
-			'contrincante="' + solicitud_usuario + '">' + 
+		var li = '<li>' + 
+			'<a href="#" class="solicitud_seleccionada" ' +
+			'contrincante_socket_id="' + contrincante_socket_id + '" ' +
+			'contrincante="' + solicitud_usuario + '" ' +
+			'contrincante_color="' + contrincante_color +'" >' +
 			solicitud_usuario + 
-			'</li>';
+			'</a>' +
+		'</li>';
 		solicitudes_html.append(li);
 	}
 }
@@ -135,17 +140,33 @@ function mostrar_form_nueva_partida() {
 	$('#form_nueva_partida').removeClass('ocultar').show();
 }
 
-function solicitud_confirmada(socket_id, username, contrincante_socket_id, contrincante) {
+/*
+*	Puede ser la solicitud mia, o la solicitud del otro
+*/
+function solicitud_confirmada(socket_id, username, mi_color, contrincante_socket_id, contrincante, contrincante_color) {
 	$('#myModal').modal('hide');
 	data_socket.contrincante = contrincante;
 	data_socket.contrincante_socket_id = contrincante_socket_id;
-	console.log('contrincante : ' + contrincante);
+	data_socket.contrincante_color = contrincante_color;
 	main_iniciar_juego();
 }
 
 $(document).on('click', '.solicitud_seleccionada', function(e) {
 	e.preventDefault();
-	confirmar_solicitud($(this).attr('socket_id'), $(this).attr('contrincante'), data_socket.socket_id, data_socket.username);
+
+	var contrincante_color = $(this).attr('contrincante_color');
+	data_socket.mi_color = PARAMETROS.BLANCA;
+
+	if (parseInt(contrincante_color, 10) == PARAMETROS.BLANCA) {
+		data_socket.mi_color = PARAMETROS.NEGRA;
+	}
+
+	confirmar_solicitud(
+		$(this).attr('contrincante_socket_id'), $(this).attr('contrincante'), 
+		$(this).attr('contrincante_color'),
+		data_socket.socket_id, data_socket.username, 
+		data_socket.mi_color
+	);
 	return false;
 });
 

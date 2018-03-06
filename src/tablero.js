@@ -4,6 +4,8 @@ function Tablero(tablero) {
 	this.tablero = tablero;
 	this.fichas = [];
 	this.casillas = [];
+	this.mi_color = null;
+
 	// reloj deberia se una clase
 	this.reloj = new Reloj(15, 0);
 
@@ -38,9 +40,9 @@ function Tablero(tablero) {
 	this.jugadores = [];
 };
 
-Tablero.prototype.iniciar = function() {
+Tablero.prototype.iniciar = function(mi_color) {
 	
-	this.setTurno(PARAMETROS.BLANCA);
+	this.mi_color = mi_color;
 
 	var pieza = null;
 	for (var i = 0; i < 8; i++) {
@@ -104,11 +106,20 @@ Tablero.prototype.setTurno = function(turno) {
 	for (var i = 0; i < 8; i++) {
 		for (var j = 0; j < 8; j++) {
 			if (this.fichas[i][j]) {
-				if (this.fichas[i][j].color == this.turno) {
-					this.fichas[i][j].ficha.draggable('enable');
+				if (this.mi_color !== null) {
+					if(this.fichas[i][j].color == this.turno && this.mi_color == this.turno) {
+						this.fichas[i][j].ficha.draggable('enable');
+					} else {
+						this.fichas[i][j].ficha.draggable('disable');
+					}
 				} else {
-					this.fichas[i][j].ficha.draggable('disable');
+					if (this.fichas[i][j].color == this.turno) {
+						this.fichas[i][j].ficha.draggable('enable');
+					} else {
+						this.fichas[i][j].ficha.draggable('disable');
+					}
 				}
+
 			}
 
 		}
