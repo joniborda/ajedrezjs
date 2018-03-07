@@ -1,9 +1,5 @@
 var socket = null;
 
-var data_socket = {
-	socket_id: null,
-	username: null
-};
 function conectar() {
 	socket = io.connect('http://localhost:5000');
 	cargar_escuchadores();
@@ -11,13 +7,13 @@ function conectar() {
 
 function agregar_usuario(mi_usuario) {
 	socket.emit('add_user', mi_usuario);
-	data_socket.username = mi_usuario;
+	mi_jugador.setUsername(mi_usuario);
 }
 
 function crear_partida(contrincante, mi_color) {
-	// las partidas puede ser con un usuario elegido a sin usuario, esperando que alguien se una
+	// las partidas puede ser con un usuario elegido o sin usuario, esperando que alguien se una
 	socket.emit('crear_partida', contrincante, mi_color);
-	data_socket.mi_color = mi_color;
+	mi_jugador.setColor(mi_color);
 }
 
 /*
@@ -26,12 +22,15 @@ function crear_partida(contrincante, mi_color) {
 function confirmar_solicitud(contrincante_socket_id, contrincante, contrincante_color, socket_id, username, mi_color) {
 	socket.emit('confirmar_solicitud', contrincante_socket_id, contrincante, contrincante_color, socket_id, username, mi_color);
 	
-	solicitud_confirmada(socket_id, username, mi_color, contrincante_socket_id, contrincante, contrincante_color);
+	contrincante_jugador.setSocketId(contrincante_socket_id);
+	contrincante_jugador.setUsername(contrincante);
+	contrincante_jugador.setColor(contrincante_color);
+
+	main_iniciar_juego();
 }
 
 function enviar_movimiento(x1, y1, x2, y2) {
-	//deshabilitarMe();
-	socket.emit('enviar_movimiento', data_socket.contrincante_socket_id, x1, y1, x2, y2);
+	socket.emit('enviar_movimiento', contrincante_jugador.getSocketId(), x1, y1, x2, y2);
 }
 
 function cargar_escuchadores() {
@@ -44,7 +43,7 @@ function cargar_escuchadores() {
 
 	// sucede cuando agregaste tu usuario al servidor
 	socket.on('added_user', function(socket_id) {
-		data_socket.socket_id = socket_id;
+		mi_jugador.setSocketId(socket_id);
 		mostrar_form_nueva_partida();
 	});
 
@@ -55,20 +54,14 @@ function cargar_escuchadores() {
 	});
 
 	socket.on('movimiento', function(socket_id, x1, y1, x2, y2) {
-		//habilitarMe();
 		tablero.mover(x1, y1, x2, y2);
 	});
 
 	socket.on('solicitud_confirmada', function(socket_id, username, mi_color, contrincante_socket_id, contrincante, contrincante_color) {
-		solicitud_confirmada(socket_id, username, mi_color, contrincante_socket_id, contrincante, contrincante_color);
-	});
+		contrincante_jugador.setSocketId(contrincante_socket_id);
+		contrincante_jugador.setUsername(contrincante);
+		contrincante_jugador.setColor(contrincante_color);
 
-	
-/*
-	socket.on('confirma_mi_partida', function(data) {
-		contrincante = data.name;
-		color = data.color;
+		main_iniciar_juego();
 	});
-*/
-
 }
