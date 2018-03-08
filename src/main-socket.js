@@ -10,8 +10,8 @@ function agregar_usuario(mi_usuario) {
 	mi_jugador.setUsername(mi_usuario);
 }
 
+// las partidas puede ser con un usuario elegido o sin usuario, esperando que alguien se una
 function crear_partida(contrincante, mi_color) {
-	// las partidas puede ser con un usuario elegido o sin usuario, esperando que alguien se una
 	socket.emit('crear_partida', contrincante, mi_color);
 	mi_jugador.setColor(mi_color);
 }

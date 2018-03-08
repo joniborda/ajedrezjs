@@ -1,4 +1,6 @@
 var PARAMETROS = require('parametros');
+var TURNO_PIEZA = '.turno_pieza';
+var CASILLA_HABILITADA = 'casilla_habilitada';
 
 function Tablero(tablero) {
 	this.tablero = tablero;
@@ -8,18 +10,13 @@ function Tablero(tablero) {
 	// reloj deberia se una clase
 	this.reloj = new Reloj(15, 0);
 
+	for (var j = 0; j < 8; j++) {
+		this.casillas[j] = [];
+	}
+	
 	var casilla = null;
-
 	for (var j = 0; j < 8; j++) {
 		this.fichas[j] = [];
-		this.casillas[j] = [];
-		for (var i = 0; i < 8; i++) {
-			this.casillas[j][i] = null;
-			this.fichas[j][i] = null;
-		}
-	}
-
-	for (var j = 0; j < 8; j++) {
 		for (var i = 0; i < 8; i++) {
 			casilla = $('.casilla:first').clone().removeClass('ocultar');
 			if ((i+j)%2) {
@@ -31,6 +28,7 @@ function Tablero(tablero) {
 
 			tablero.append(casilla);
 			this.casillas[i][j] = casilla;
+			this.fichas[j][i] = null;
 		}
 	}
 
@@ -73,7 +71,7 @@ Tablero.prototype.iniciar = function() {
 				$(tablero.fichas[j][i].ficha).draggable({
 					containment: tablero.tablero,
 					start: function(event, ui) {
-						tablero.tablero.find('.casilla_habilitada').remove();
+						tablero.tablero.find('.' + CASILLA_HABILITADA).remove();
 
 						var x = parseInt($(this).attr('x'));
 						var y = parseInt($(this).attr('y'));
@@ -82,19 +80,19 @@ Tablero.prototype.iniciar = function() {
 							for (var o = 0; o < 8; o++) {
 								for (var p = 0; p < 8; p++) {
 									if (tablero.fichas[x][y].habilitadaMover(o, p)) {
-										tablero.casillas[o][p].append('<div class="casilla_habilitada"><div>');
+										tablero.casillas[o][p].append('<div class="' + CASILLA_HABILITADA + '"><div>');
 									}
 								}
 							}
 						}
 			  		},
 			  		stop: function(event, ui) {
-			  			tablero.tablero.find('.casilla_habilitada').remove();
+			  			tablero.tablero.find('.' + CASILLA_HABILITADA).remove();
 			  		}
 				});
 
 				$(tablero.fichas[j][i].ficha).click(function(e) {
-		  			tablero.tablero.find('.casilla_habilitada').remove();
+		  			tablero.tablero.find('.' + CASILLA_HABILITADA).remove();
 		  			var x = parseInt($(this).attr('x'));
 		  			var y = parseInt($(this).attr('y'));
 
@@ -105,8 +103,8 @@ Tablero.prototype.iniciar = function() {
 						for (var o = 0; o < 8; o++) {
 							for (var p = 0; p < 8; p++) {
 								if (tablero.fichas[x][y].habilitadaMover(o, p)) {
-									if (tablero.casillas[o][p].find('.casilla_habilitada').length === 0) {
-										tablero.casillas[o][p].append('<div class="casilla_habilitada"><div>');
+									if (tablero.casillas[o][p].find('.' + CASILLA_HABILITADA).length === 0) {
+										tablero.casillas[o][p].append('<div class="' + CASILLA_HABILITADA + '"><div>');
 									}
 								}
 							}
@@ -156,10 +154,10 @@ Tablero.prototype.mover = function(x1, y1, x2, y2) {
 Tablero.prototype.setTurno = function(turno) {
 	this.turno = turno;
 	if (turno == PARAMETROS.BLANCA) {
-		$('.turno_pieza').css('color', 'white');
+		$(TURNO_PIEZA).css('color', 'white');
 
 	} else {
-		$('.turno_pieza').css('color', 'black');
+		$(TURNO_PIEZA).css('color', 'black');
 	}
 
 	this.reloj.setTurno(turno);

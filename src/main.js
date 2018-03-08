@@ -1,25 +1,27 @@
 var tablero = null;
 var mi_jugador = new Jugador();
 var contrincante_jugador = new Jugador();
+
+var FORM_NUEVO_USUARIO = '#form_nuevo_usuario';
+var INPUT_USUARIOS_CONECTADOS = '#input_usuarios_conectados';
+var MY_MODAL = '#myModal';
+var SOLICITUDES_PARTIDAS = '.solicitudes_partidas';
+var SOLICITUD_SELECCIONADA = 'solicitud_seleccionada';
+var FORM_NUEVA_PARTIDA = '#form_nueva_partida';
+
 function main_iniciar_juego() {
 
 	tablero = new Tablero($('#tablero'));
 
 	tablero.iniciar();
 
-	var caballo = tablero.fichas[1][0];
-	var posiciones_recorridas = [];
-	for (var i = 0; i < 8; i++) {
-		posiciones_recorridas[i] = [];
-	}
-
 	tablero.setTurno(PARAMETROS.BLANCA);
-	$('#myModal').modal('hide');
+	$(MY_MODAL).modal('hide');
 }
 
 // va a mostrar los usuarios conectados en una lista html
 function mostrar_usuarios(usuarios) {
-	var usuarios_conectados_html = $('#input_usuarios_conectados');
+	var usuarios_conectados_html = $(INPUT_USUARIOS_CONECTADOS);
 	usuarios_conectados_html.html('');
 	for (var i in usuarios) {
 		if (usuarios[i].username !== mi_jugador.getUsername()) {
@@ -30,7 +32,7 @@ function mostrar_usuarios(usuarios) {
 }
 
 function mostrar_solicitudes() {
-	var solicitudes_html = $('.solicitudes_partidas');
+	var solicitudes_html = $(SOLICITUDES_PARTIDAS);
 	solicitudes_html.html('');
 	for (var i = PARAMETROS.SOLICITUDES.length - 1; i >= 0; i--) {
 
@@ -45,7 +47,7 @@ function mostrar_solicitudes() {
 		}
 
 		var li = '<li>' + 
-			'<a href="#" class="solicitud_seleccionada" ' +
+			'<a href="#" class="' + SOLICITUD_SELECCIONADA + '" ' +
 			'contrincante_socket_id="' + contrincante_socket_id + '" ' +
 			'contrincante="' + solicitud_usuario + '" ' +
 			'contrincante_color="' + contrincante_color +'" >' +
@@ -57,11 +59,11 @@ function mostrar_solicitudes() {
 }
 
 function mostrar_form_nueva_partida() {
-	$('#form_nuevo_usuario').hide();
-	$('#form_nueva_partida').removeClass('ocultar').show();
+	$(FORM_NUEVO_USUARIO).hide();
+	$(FORM_NUEVA_PARTIDA).removeClass('ocultar').show();
 }
 
-$(document).on('click', '.solicitud_seleccionada', function(e) {
+$(document).on('click', '.' + SOLICITUD_SELECCIONADA, function(e) {
 	e.preventDefault();
 
 	var contrincante_color = $(this).attr('contrincante_color');
@@ -80,21 +82,21 @@ $(document).on('click', '.solicitud_seleccionada', function(e) {
 	return false;
 });
 
-$(document).on('submit', '#form_nuevo_usuario', function(e) {
+$(document).on('submit', FORM_NUEVO_USUARIO, function(e) {
 	e.preventDefault();
 	agregar_usuario($(this).find('.input_mi_usuario').val());
 	return false;
 });
 
-$(document).on('submit', '#form_nueva_partida', function(e) {
+$(document).on('submit', FORM_NUEVA_PARTIDA, function(e) {
 	e.preventDefault();
-	crear_partida($(this).find('#input_usuarios_conectados').val(), $(this).find('[name="input_color"]').val());
+	crear_partida($(this).find(INPUT_USUARIOS_CONECTADOS).val(), $(this).find('[name="input_color"]').val());
 
 	
 	return false;
 });
 
 $(document).ready(function() {
-	$('#myModal').modal();
+	$(MY_MODAL).modal();
 	conectar();
 });
