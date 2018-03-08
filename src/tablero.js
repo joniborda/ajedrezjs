@@ -7,7 +7,6 @@ function Tablero(tablero) {
 	this.fichas = [];
 	this.casillas = [];
 
-	// reloj deberia se una clase
 	this.reloj = new Reloj(15, 0);
 
 	for (var j = 0; j < 8; j++) {

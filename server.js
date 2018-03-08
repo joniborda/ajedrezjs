@@ -44,7 +44,7 @@ io.on('connection', function(socket) {
 			return;
 		}
 
-        socket.mi_color = parseInt(mi_color, 10)
+        socket.mi_color = parseInt(mi_color, 10);
 		var data = {
             usuario_socket_id: socket.id,
             usuario: socket.username,

@@ -40,7 +40,7 @@ function mostrar_solicitudes() {
 		var contrincante_socket_id = PARAMETROS.SOLICITUDES[i].usuario_socket_id;
 		var contrincante_color = PARAMETROS.SOLICITUDES[i].mi_color;
 
-		if (PARAMETROS.SOLICITUDES[i].contrincante !== mi_jugador.getUsername()) {
+		if (PARAMETROS.SOLICITUDES[i].usuario == mi_jugador.getUsername()) {
 			solicitud_usuario = PARAMETROS.SOLICITUDES[i].contrincante;
 			contrincante_socket_id = PARAMETROS.SOLICITUDES[i].contrincante_socket_id;
 			contrincante_color = PARAMETROS.SOLICITUDES[i].contrincante_color;
@@ -91,7 +91,6 @@ $(document).on('submit', FORM_NUEVO_USUARIO, function(e) {
 $(document).on('submit', FORM_NUEVA_PARTIDA, function(e) {
 	e.preventDefault();
 	crear_partida($(this).find(INPUT_USUARIOS_CONECTADOS).val(), $(this).find('[name="input_color"]').val());
-
 	
 	return false;
 });
