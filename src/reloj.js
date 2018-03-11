@@ -22,10 +22,17 @@ Reloj.prototype.setTurno = function(turno) {
 	TURNO = turno;
 
 	this.reloj_intervalo = setInterval(function() {
+
 		if (TURNO == PARAMETROS.BLANCA) {
 			reloj = reloj_blanca;
 		} else {
 			reloj = reloj_negra;
+		}
+
+		if (reloj.getMinutes() == 0 && reloj.getSeconds() == 0) {
+			alert('fin del juego, las ' + PARAMETROS.COLORES[TURNO] + ' pierden.');
+			tablero.reloj.parar();
+			return true;
 		}
 		reloj.setMilliseconds(-1);
 		var segundos = reloj.getSeconds();
