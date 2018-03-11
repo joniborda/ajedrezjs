@@ -57,8 +57,10 @@ io.on('connection', function(socket) {
 		clientes[usuarios_conectados[indice_contrincante].socket_id].emit('enviar_solicitud', data);
     });
 
-    socket.on('confirmar_solicitud', function(contrincante_socket_id, contrincante, contrincante_color, socket_id, username, mi_color) {
-        clientes[contrincante_socket_id].emit('solicitud_confirmada', contrincante_socket_id, contrincante, contrincante_color, socket_id, username, mi_color);
+    socket.on('confirmar_solicitud', function(contrincante_socket_id, contrincante, contrincante_color, 
+    	socket_id, username, mi_color) {
+        clientes[contrincante_socket_id].emit('solicitud_confirmada', contrincante_socket_id, 
+        	contrincante, contrincante_color, socket_id, username, mi_color);
     });
 
     socket.on('enviar_movimiento', function(socket_id, x1, y1, x2, y2) {

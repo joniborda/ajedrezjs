@@ -90,7 +90,7 @@ $(document).on('submit', FORM_NUEVO_USUARIO, function(e) {
 
 $(document).on('submit', FORM_NUEVA_PARTIDA, function(e) {
 	e.preventDefault();
-	crear_partida($(this).find(INPUT_USUARIOS_CONECTADOS).val(), $(this).find('[name="input_color"]').val());
+	crear_partida($(this).find(INPUT_USUARIOS_CONECTADOS).val(), $(this).find('[name="input_color"]:checked').val());
 	
 	return false;
 });
