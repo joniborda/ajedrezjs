@@ -73,6 +73,13 @@ io.on('connection', function(socket) {
     socket.on('disconnect', function() {
         clientes.splice(socket.id, 1);
 
+        for (var i in usuarios_conectados) {
+            if (usuarios_conectados[i].socket_id == socket.id) {
+                usuarios_conectados.splice(i, 1);
+                break;
+            }
+        };
+
         for (var i in clientes) {
             clientes[i].emit('usuarios_conectados', usuarios_conectados);
         }

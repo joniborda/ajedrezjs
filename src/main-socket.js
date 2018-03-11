@@ -69,4 +69,8 @@ function cargar_escuchadores() {
 
 		main_iniciar_juego();
 	});
+
+	window.onbeforeunload = function() {
+		socket.emit('disconnect');
+	}
 }
