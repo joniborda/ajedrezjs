@@ -13,7 +13,10 @@ Peon.prototype.puedeMover = function(x, y) {
 	this.alpaso = false;
 
 	// primer movimiento puede ser de a 2
-	if (this.movio === false && Math.abs(this.y - y) === 2 && this.x - x === 0) {
+	if (this.movio === false && Math.abs(this.y - y) === 2 && this.x - x === 0 && 
+		(typeof this.fichas[x][y] == "undefined" || this.fichas[x][y] == null)
+	) {
+		console.log(this.fichas[x][y]);
 		this.alpaso = true;
 		return true;
 	}
