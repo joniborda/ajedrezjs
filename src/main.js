@@ -45,16 +45,29 @@ function mostrar_solicitudes() {
 			contrincante_socket_id = PARAMETROS.SOLICITUDES[i].contrincante_socket_id;
 			contrincante_color = PARAMETROS.SOLICITUDES[i].contrincante_color;
 		}
-
-		var li = '<li>' + 
-			'<a href="#" class="' + SOLICITUD_SELECCIONADA + '" ' +
-			'contrincante_socket_id="' + contrincante_socket_id + '" ' +
-			'contrincante="' + solicitud_usuario + '" ' +
-			'contrincante_color="' + contrincante_color +'" >' +
-			solicitud_usuario + 
-			'</a>' +
-		'</li>';
-		solicitudes_html.append(li);
+		var class_color = '';
+		if (contrincante_color == PARAMETROS.BLANCA) {
+			class_color = ' white';
+		}
+		var row = 
+		'<tr>' + 
+			'<td>' +
+				'<a href="#" class="' + SOLICITUD_SELECCIONADA + '" ' +
+					'contrincante_socket_id="' + contrincante_socket_id + '" ' +
+					'contrincante="' + solicitud_usuario + '" ' +
+					'contrincante_color="' + contrincante_color +'" >' +
+					'Jugar' +
+				'</a>' +
+			'</td>' +
+			'<td>' +
+				solicitud_usuario + 
+			'</td>' +
+			'<td>' +
+				'<span class="fas fa-chess-pawn ' + class_color + '">' +
+				'</span>' +
+			'</td>' +
+		'</tr>';
+		solicitudes_html.append(row);
 	}
 }
 

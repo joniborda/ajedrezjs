@@ -118,3 +118,7 @@ body {
 	min-height: 300px;
 	min-width: 250px;
 }
+
+.solicitudes_partidas {
+	background: #dee2e6;
+}
