@@ -1,4 +1,4 @@
-var tablero = null;
+var tablero = new Tablero($('#tablero'));
 var mi_jugador = new Jugador();
 var contrincante_jugador = new Jugador();
 
@@ -10,8 +10,6 @@ var SOLICITUD_SELECCIONADA = 'solicitud_seleccionada';
 var FORM_NUEVA_PARTIDA = '#form_nueva_partida';
 
 function main_iniciar_juego() {
-
-	tablero = new Tablero($('#tablero'));
 
 	tablero.iniciar();
 

@@ -14,9 +14,6 @@
 
 		<div class="contenedor">
 			<div class="turno">
-				TURNO: 
-				<div class="turno_pieza pieza glyphicon glyphicon-pawn">
-				</div>
 			</div>
 			<div>
 				<div id="reloj">
@@ -38,23 +35,26 @@
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
+					<h4 class="modal-title">Nueva Partida</h4>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
-					<h4 class="modal-title">Nueva Partida</h4>
 				</div>
 				<div class="modal-body">
 					<div class="row">
 						<div class="col-md-6">
-							<form id="form_nuevo_usuario">
-								<input type="text" class="input_mi_usuario form-control" placeholder="Nombre de usuario" />
+							<form id="form_nuevo_usuario" class="form-inline">
+								<div class="form-group">
+    								<label  class="sr-only" for="">Nombre de usuario</label>
+									<input type="text" class="input_mi_usuario form-control" placeholder="Nombre de usuario" />
+								</div>
 								<input type="submit" class="btn" value="Crear" />
 							</form>
 							
 							<form class="ocultar" id="form_nueva_partida">
 								<select id="input_usuarios_conectados" class="form-control">
 								</select>
-								<div class="row contanendor_color">
+								<div class="row contenendor_color">
 									<div class="seleccion_color color_izquierda">
 										<input name="input_color" type="radio" id="input_color_blanco" class="solicitud_color" value="0" required="required" />
 										<label for="input_color_blanco">
@@ -69,7 +69,7 @@
 											</span>
 										</label>
 									</div>
-								</div>
+								</div>	
 								<input type="submit" class="btn" value="Invitar" />
 							</form>
 						</div>

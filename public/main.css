@@ -72,12 +72,23 @@ body {
 	height: 400px;
     margin-top: 215px;
 }
+
 .reloj_blanca, .reloj_negra {
-	background: #FFF;
+	text-align: center;
+	text-align: center;
 	border: 2px solid;
 	border-radius: 5px;
 	margin-bottom: 30px;
 	padding: 5px;
+}
+.reloj_blanca {
+	background: #FFF;
+
+}
+
+.reloj_negra {
+	background: #000;
+	color: #FFF;
 }
 
 @media (min-width: 992px) {
@@ -91,10 +102,8 @@ body {
     }
 }
 
-.contanendor_color {
-	margin: auto;
-	text-align: center;
-	padding: 10px;
+.contenendor_color {
+	padding: 10px 15px;
 }
 
 .seleccion_color {
@@ -105,10 +114,6 @@ body {
     float: left;
     font-size: 1.8em;
 }
-.color_izquierda {
-    margin-left: auto;
-}
-
 .color_derecha {
     margin-right: auto;
 }
@@ -121,4 +126,11 @@ body {
 
 .solicitudes_partidas {
 	background: #dee2e6;
+}
+
+.modal-dialog {
+    min-width: 80%;
+}
+.limpiar {
+	clear: both;
 }
