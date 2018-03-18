@@ -13,6 +13,7 @@ server.listen(parametros.port, function() {
 app.use(express.static('public'));
 app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
 app.use('/static/fontawesome/', express.static(__dirname + '/src/fontawesome/svg-with-js/js'));
+app.use('/static/jquery/', express.static(__dirname + '/src/jquery-ui-1.12.1.custom'));
 
 io.on('connection', function(socket) {
     clientes[socket.id] = socket;
@@ -23,6 +24,8 @@ io.on('connection', function(socket) {
             socket_id: socket.id,
             username: username
         };
+        console.log('username ' + username);
+        
         usuarios_conectados.push(data);
         socket.emit('added_user', socket.id);
 
@@ -107,8 +110,8 @@ gulp.src(
             './src/rey.js',
             './src/reloj.js',
             './src/tablero.js',
-            './src/main.js',
             './src/main-socket.js',
+            './src/main.js',
         ]
     )
     .pipe(concat('all.js'))

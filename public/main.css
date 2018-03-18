@@ -118,3 +118,16 @@ body {
 	min-height: 300px;
 	min-width: 250px;
 }
+
+.ui-dialog {
+	z-index: 1100 !important;
+}
+
+#dialog_loading img {
+	width: 100%;
+}
+
+.ui-widget-content {
+	background: transparent !important;
+	border: none !important;
+}

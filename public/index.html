@@ -7,6 +7,7 @@
 <body>
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="main.css">
+	<link rel="stylesheet" type="text/css" href="/static/jquery/jquery-ui.css">
 	<script defer src="/static/fontawesome/fa-brands.js"></script>
 	<script defer src="/static/fontawesome/fa-regular.js"></script>
 	<script defer src="/static/fontawesome/fa-solid.js"></script>
@@ -46,12 +47,12 @@
 				<div class="modal-body">
 					<div class="row">
 						<div class="col-md-6">
-							<form id="form_nuevo_usuario">
+							<form id="form_nuevo_usuario" action="/">
 								<input type="text" class="input_mi_usuario form-control" placeholder="Nombre de usuario" />
 								<input type="submit" class="btn" value="Crear" />
 							</form>
 							
-							<form class="ocultar" id="form_nueva_partida">
+							<form class="ocultar" id="form_nueva_partida" action="/">
 								<select id="input_usuarios_conectados" class="form-control">
 								</select>
 								<div class="row contanendor_color">

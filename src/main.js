@@ -63,6 +63,22 @@ function mostrar_form_nueva_partida() {
 	$(FORM_NUEVA_PARTIDA).removeClass('ocultar').show();
 }
 
+function mostrar_cargando() {
+	$(
+		'<div id="dialog_loading">' +
+			'<img src="/img/loading.gif" />' +
+		'</div>'
+	).dialog({
+		modal: true
+	});
+	$('#dialog_loading').closest('.ui-dialog').find('.ui-dialog-titlebar').remove();
+	
+}
+
+function ocultar_cargando() {
+	$('#dialog_loading').remove();
+}
+
 $(document).on('click', '.' + SOLICITUD_SELECCIONADA, function(e) {
 	e.preventDefault();
 
