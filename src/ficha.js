@@ -30,10 +30,15 @@ Ficha.prototype.setPosition = function(x, y) {
 Ficha.prototype.setColor = function(color) {
 	this.color = color;
 	this.position = PARAMETROS.ARRIBA;
+	if (mi_jugador.isBlanco() && color == PARAMETROS.BLANCA || mi_jugador.isNegro() && color == PARAMETROS.NEGRA) {
+		this.position = PARAMETROS.ABAJO;
+	}
+	if (mi_jugador.isBlanco() && color == PARAMETROS.NEGRA || mi_jugador.isNegro() && color == PARAMETROS.BLANCA) {
+		this.position = PARAMETROS.ARRIBA;
+	}
 	if (color == PARAMETROS.BLANCA) {
 		this.ficha.css('color', '#FFF');
 	} else {
-		this.position = PARAMETROS.ABAJO;
 		this.ficha.css('color', '#000');
 	}
 }
@@ -63,7 +68,9 @@ Ficha.prototype.mover = function(x, y) {
 		for (var i = 0; i < 8; i++) {
 			for (var j = 0; j < 8; j++) {
 				if (this.fichas[i][j] && this.fichas[i][j].generaJaque()) {
-					alert('jaque ' + PARAMETROS.COLORES[this.fichas[i][j].color]);
+					if (this.fichas[i][j].color != mi_jugador.getColor()) {
+						alert('jaque');
+					}
 				}
 			}
 		}

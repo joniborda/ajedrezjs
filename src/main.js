@@ -72,6 +72,7 @@ function mostrar_solicitudes() {
 function mostrar_form_nueva_partida() {
 	$(FORM_NUEVO_USUARIO).hide();
 	$(FORM_NUEVA_PARTIDA).removeClass('ocultar').show();
+	ocultar_cargando();
 }
 
 function mostrar_cargando() {
@@ -111,6 +112,7 @@ $(document).on('click', '.' + SOLICITUD_SELECCIONADA, function(e) {
 
 $(document).on('submit', FORM_NUEVO_USUARIO, function(e) {
 	e.preventDefault();
+	mostrar_cargando();
 	agregar_usuario($(this).find('.input_mi_usuario').val());
 	return false;
 });

@@ -7,7 +7,7 @@ function Tablero(tablero) {
 	this.fichas = [];
 	this.casillas = [];
 
-	this.reloj = new Reloj(1, 0);
+	this.reloj = new Reloj(10, 0);
 
 	for (var j = 0; j < 8; j++) {
 		this.casillas[j] = [];
@@ -18,8 +18,11 @@ function Tablero(tablero) {
 		this.fichas[j] = [];
 		for (var i = 0; i < 8; i++) {
 			casilla = $('.casilla:first').clone().removeClass('ocultar');
-			if ((i+j)%2) {
+
+			if ((i+j)%2 == 0) {
 				casilla.addClass('white');
+			} else {
+				casilla.removeClass('white');
 			}
 
 			casilla.attr('x', i);
@@ -39,30 +42,42 @@ Tablero.prototype.iniciar = function() {
 
 	var pieza = null;
 	for (var i = 0; i < 8; i++) {
-		pieza = new Peon(this.tablero, this.fichas, i, 1, PARAMETROS.BLANCA);
+		pieza = new Peon(this.tablero, this.fichas, i, 1, mi_jugador.isBlanco() ? PARAMETROS.NEGRA : PARAMETROS.BLANCA);
 	}
 
-	pieza = new Torre(this.tablero, this.fichas, 0, 0, PARAMETROS.BLANCA);
-	pieza = new Caballo(this.tablero, this.fichas, 1, 0, PARAMETROS.BLANCA);
-	pieza = new Alfil(this.tablero, this.fichas, 2, 0, PARAMETROS.BLANCA);
-	pieza = new Rey(this.tablero, this.fichas, 3, 0, PARAMETROS.BLANCA);
-	pieza = new Reina(this.tablero, this.fichas, 4, 0, PARAMETROS.BLANCA);
-	pieza = new Alfil(this.tablero, this.fichas, 5, 0, PARAMETROS.BLANCA);
-	pieza = new Caballo(this.tablero, this.fichas, 6, 0, PARAMETROS.BLANCA);
-	pieza = new Torre(this.tablero, this.fichas, 7, 0, PARAMETROS.BLANCA);
+	pieza = new Torre(this.tablero, this.fichas, 0, 0, mi_jugador.isBlanco() ? PARAMETROS.NEGRA : PARAMETROS.BLANCA);
+	pieza = new Caballo(this.tablero, this.fichas, 1, 0, mi_jugador.isBlanco() ? PARAMETROS.NEGRA : PARAMETROS.BLANCA);
+	pieza = new Alfil(this.tablero, this.fichas, 2, 0, mi_jugador.isBlanco() ? PARAMETROS.NEGRA : PARAMETROS.BLANCA);
+	if (mi_jugador.isBlanco()) {
+		pieza = new Rey(this.tablero, this.fichas, 4, 0, mi_jugador.isBlanco() ? PARAMETROS.NEGRA : PARAMETROS.BLANCA);
+		pieza = new Reina(this.tablero, this.fichas, 3, 0, mi_jugador.isBlanco() ? PARAMETROS.NEGRA : PARAMETROS.BLANCA);
+	} else {
+		pieza = new Rey(this.tablero, this.fichas, 3, 0, mi_jugador.isBlanco() ? PARAMETROS.NEGRA : PARAMETROS.BLANCA);
+		pieza = new Reina(this.tablero, this.fichas, 4, 0, mi_jugador.isBlanco() ? PARAMETROS.NEGRA : PARAMETROS.BLANCA);
+	}
+	pieza = new Alfil(this.tablero, this.fichas, 5, 0, mi_jugador.isBlanco() ? PARAMETROS.NEGRA : PARAMETROS.BLANCA);
+	pieza = new Caballo(this.tablero, this.fichas, 6, 0, mi_jugador.isBlanco() ? PARAMETROS.NEGRA : PARAMETROS.BLANCA);
+	pieza = new Torre(this.tablero, this.fichas, 7, 0, mi_jugador.isBlanco() ? PARAMETROS.NEGRA : PARAMETROS.BLANCA);
 
 	for (var i = 0; i < 8; i++) {
-		pieza = new Peon(this.tablero, this.fichas, i, 6, PARAMETROS.NEGRA);
+		pieza = new Peon(this.tablero, this.fichas, i, 6, mi_jugador.isBlanco() ? PARAMETROS.BLANCA : PARAMETROS.NEGRA);
 	}
 
-	pieza = new Torre(this.tablero, this.fichas, 0, 7, PARAMETROS.NEGRA);
-	pieza = new Caballo(this.tablero, this.fichas, 1, 7, PARAMETROS.NEGRA);
-	pieza = new Alfil(this.tablero, this.fichas, 2, 7, PARAMETROS.NEGRA);
-	pieza = new Rey(this.tablero, this.fichas, 3, 7, PARAMETROS.NEGRA);
-	pieza = new Reina(this.tablero, this.fichas, 4, 7, PARAMETROS.NEGRA);
-	pieza = new Alfil(this.tablero, this.fichas, 5, 7, PARAMETROS.NEGRA);
-	pieza = new Caballo(this.tablero, this.fichas, 6, 7, PARAMETROS.NEGRA);
-	pieza = new Torre(this.tablero, this.fichas, 7, 7, PARAMETROS.NEGRA);
+	pieza = new Torre(this.tablero, this.fichas, 0, 7, mi_jugador.isBlanco() ? PARAMETROS.BLANCA : PARAMETROS.NEGRA);
+	pieza = new Caballo(this.tablero, this.fichas, 1, 7, mi_jugador.isBlanco() ? PARAMETROS.BLANCA : PARAMETROS.NEGRA);
+	pieza = new Alfil(this.tablero, this.fichas, 2, 7, mi_jugador.isBlanco() ? PARAMETROS.BLANCA : PARAMETROS.NEGRA);
+	
+	if (mi_jugador.isBlanco()) {
+		pieza = new Rey(this.tablero, this.fichas, 4, 7, mi_jugador.isBlanco() ? PARAMETROS.BLANCA : PARAMETROS.NEGRA);
+		pieza = new Reina(this.tablero, this.fichas, 3, 7, mi_jugador.isBlanco() ? PARAMETROS.BLANCA : PARAMETROS.NEGRA);
+	} else {
+		pieza = new Rey(this.tablero, this.fichas, 3, 7, mi_jugador.isBlanco() ? PARAMETROS.BLANCA : PARAMETROS.NEGRA);
+		pieza = new Reina(this.tablero, this.fichas, 4, 7, mi_jugador.isBlanco() ? PARAMETROS.BLANCA : PARAMETROS.NEGRA);
+	}
+	
+	pieza = new Alfil(this.tablero, this.fichas, 5, 7, mi_jugador.isBlanco() ? PARAMETROS.BLANCA : PARAMETROS.NEGRA);
+	pieza = new Caballo(this.tablero, this.fichas, 6, 7, mi_jugador.isBlanco() ? PARAMETROS.BLANCA : PARAMETROS.NEGRA);
+	pieza = new Torre(this.tablero, this.fichas, 7, 7, mi_jugador.isBlanco() ? PARAMETROS.BLANCA : PARAMETROS.NEGRA);
 
 	for (var j = 0; j < 8; j++) {
 		for (var i = 0; i < 8; i++) {
@@ -123,6 +138,13 @@ Tablero.prototype.iniciar = function() {
 							y2 = parseInt($(this).attr('y'));
 
 						if (tablero.mover(x1, y1, x2, y2)) {
+							//cuando enviio el movimiento lo envio alreves si es blanca el jugador
+							if (mi_jugador.isBlanco()) {
+								x1 = 7-x1;
+								y1 = 7-y1;
+								x2 = 7-x2;
+								y2 = 7-y2;
+							}
 							enviar_movimiento(x1, y1, x2, y2);
 						}
 					}

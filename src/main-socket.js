@@ -57,6 +57,13 @@ function cargar_escuchadores() {
 	});
 
 	socket.on('movimiento', function(socket_id, x1, y1, x2, y2) {
+		if (mi_jugador.isBlanco()) {
+			x1 = 7-x1;
+			y1 = 7-y1;
+			x2 = 7-x2;
+			y2 = 7-y2;
+		}
+		console.log('movimiento ' + x1 + ' ' + y1 + ' ' + x2 + ' ' + y2 + ' ')
 		tablero.mover(x1, y1, x2, y2);
 	});
 

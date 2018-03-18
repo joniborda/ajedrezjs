@@ -28,4 +28,11 @@ Jugador.prototype.getColor = function(color) {
 	return this.color;
 }
 
+Jugador.prototype.isBlanco = function() {
+	return this.color == PARAMETROS.BLANCA;
+}
+
+Jugador.prototype.isNegro = function() {
+	return this.color == PARAMETROS.NEGRA;
+}
 //Jugador.prototype.setId = function(id) {
