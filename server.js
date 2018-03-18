@@ -5,9 +5,9 @@ var express = require('express'),
     usuarios_conectados = [],
     parametros = require('./src/parametros.js'),
     clientes = [];
-console.log(process.env.PORT);
-server.listen(process.env.PORT, function() {  
-    console.log('Servidor corriendo en http://localhost:' + parametros.port);
+
+server.listen(process.env.PORT || 5000, function() {  
+    console.log('Servidor corriendo en http://localhost:' + process.env.PORT || 5000);
 });
 
 app.use(express.static('public'));

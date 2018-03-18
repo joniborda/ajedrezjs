@@ -138,14 +138,18 @@ Tablero.prototype.iniciar = function() {
 							y2 = parseInt($(this).attr('y'));
 
 						if (tablero.mover(x1, y1, x2, y2)) {
-							//cuando enviio el movimiento lo envio alreves si es blanca el jugador
-							if (mi_jugador.isBlanco()) {
-								x1 = 7-x1;
-								y1 = 7-y1;
-								x2 = 7-x2;
-								y2 = 7-y2;
+							if (contrincante_jugador.getUsername() == 'compu') {
+								//tablero.setTurno(PARAMETROS.NEGRA);
+							} else {
+								//cuando enviio el movimiento lo envio alreves si es blanca el jugador
+								if (mi_jugador.isBlanco()) {
+									x1 = 7-x1;
+									y1 = 7-y1;
+									x2 = 7-x2;
+									y2 = 7-y2;
+								}
+								enviar_movimiento(x1, y1, x2, y2);
 							}
-							enviar_movimiento(x1, y1, x2, y2);
 						}
 					}
 				}

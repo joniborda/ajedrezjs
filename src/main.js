@@ -21,6 +21,7 @@ function main_iniciar_juego() {
 function mostrar_usuarios(usuarios) {
 	var usuarios_conectados_html = $(INPUT_USUARIOS_CONECTADOS);
 	usuarios_conectados_html.html('');
+	usuarios_conectados_html.append('<option value="compu">COMPU</option>');
 	for (var i in usuarios) {
 		if (usuarios[i].username !== mi_jugador.getUsername()) {
 			var option = '<option value="' + usuarios[i].username + '">' + usuarios[i].username + '</option>';
@@ -119,7 +120,14 @@ $(document).on('submit', FORM_NUEVO_USUARIO, function(e) {
 
 $(document).on('submit', FORM_NUEVA_PARTIDA, function(e) {
 	e.preventDefault();
-	crear_partida($(this).find(INPUT_USUARIOS_CONECTADOS).val(), $(this).find('[name="input_color"]:checked').val());
+	if ($(this).find(INPUT_USUARIOS_CONECTADOS).val() == 'compu') {
+		mi_jugador.setColor(PARAMETROS.BLANCA);
+		contrincante_jugador.setColor(PARAMETROS.NEGRA);
+		contrincante_jugador.setUsername('compu');
+		main_iniciar_juego();
+	} else {
+		crear_partida($(this).find(INPUT_USUARIOS_CONECTADOS).val(), $(this).find('[name="input_color"]:checked').val());
+	}
 	
 	return false;
 });
