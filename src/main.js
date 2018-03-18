@@ -120,13 +120,22 @@ $(document).on('submit', FORM_NUEVO_USUARIO, function(e) {
 
 $(document).on('submit', FORM_NUEVA_PARTIDA, function(e) {
 	e.preventDefault();
-	if ($(this).find(INPUT_USUARIOS_CONECTADOS).val() == 'compu') {
-		mi_jugador.setColor(PARAMETROS.BLANCA);
-		contrincante_jugador.setColor(PARAMETROS.NEGRA);
+	var mi_color = $(this).find('[name="input_color"]:checked').val();
+	var nombre_contrincante = $(this).find(INPUT_USUARIOS_CONECTADOS).val();
+	if (nombre_contrincante == 'compu') {
+		
+		mi_jugador.setColor(mi_color);
+		
+		if (mi_color == PARAMETROS.BLANCA) {
+			contrincante_jugador.setColor(PARAMETROS.NEGRA);
+		} else {
+			contrincante_jugador.setColor(PARAMETROS.BLANCA);
+		}
+		
 		contrincante_jugador.setUsername('compu');
 		main_iniciar_juego();
 	} else {
-		crear_partida($(this).find(INPUT_USUARIOS_CONECTADOS).val(), $(this).find('[name="input_color"]:checked').val());
+		crear_partida(nombre_contrincante, mi_color);
 	}
 	
 	return false;
