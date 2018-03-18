@@ -5,7 +5,7 @@ var express = require('express'),
     usuarios_conectados = [],
     parametros = require('./src/parametros.js'),
     clientes = [];
-
+console.log(process.env.PORT);
 server.listen(parametros.port, function() {  
     console.log('Servidor corriendo en http://localhost:' + parametros.port);
 });
