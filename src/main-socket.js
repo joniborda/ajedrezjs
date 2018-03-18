@@ -1,7 +1,7 @@
 var socket = null;
 
 function conectar() {
-	socket = io.connect('https://ajedrezjs.herokuapp.com:5000');
+	socket = io.connect('https://ajedrezjs.herokuapp.com');
 	cargar_escuchadores();
 }
 
