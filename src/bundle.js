@@ -11,7 +11,7 @@ var dibujo_tablero =
 ;
 
 module.exports = {
-	port: 40510,
+	port: 26083,
 	IZQUIERDA: 1,
 	DERECHA: 2,
 	BLANCA: 0,
