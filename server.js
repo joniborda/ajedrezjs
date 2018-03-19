@@ -111,7 +111,7 @@ gulp.src(
             './src/reloj.js',
             './src/tablero.js',
             './src/main-socket.js',
-            './src/compu.js'
+            './src/compu.js',
             './src/main.js',
         ]
     )
